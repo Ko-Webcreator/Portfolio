@@ -17,9 +17,12 @@ export const leftFixed = css`
 export const header = css`
   display: flex;
   align-items: center;
-  z-index: ${zIndex}
+  justify-content: center;
+  z-index: ${zIndex};
   width: 100%;
   height: 100%;
+  margin-left: -50px;
+  background: var(--black);
 
   canvas {
     width: 100%;
@@ -29,13 +32,14 @@ export const header = css`
     left: 0;
     top: 0;
 
-    &.draft {
-      z-index: -1;
-      opacity: 0;
-    }
+    // &.draft {
+    //   z-index: -1;
+    //   opacity: 0;
+    // }
   }
 
   h1 {
     font-size: 10rem;
+    display: none;
   }
 `;
