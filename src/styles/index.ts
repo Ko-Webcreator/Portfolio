@@ -108,6 +108,14 @@ export const verticalLine = css`
     & ~ li {
       margin-top: 10px;
     }
+
+    &:last-of-type {
+      margin-top: 30px;
+    }
+
+    svg {
+      animation: fillColor-change 3s ease-in infinite reverse;
+    }
   }
 
   @keyframes color-change {
@@ -116,6 +124,15 @@ export const verticalLine = css`
     }
     100% {
       color: rgb(254, 220, 64);
+    }
+  }
+
+  @keyframes fillColor-change {
+    0% {
+      fill: rgb(247, 93, 139);
+    }
+    100% {
+      fill: rgb(254, 220, 64);
     }
   }
 `;
@@ -137,6 +154,7 @@ export const header = css`
     left: 0;
     top: 0;
     z-index: 20;
+    pointer-events: none;
 
     // &.draft {
     //   z-index: -1;

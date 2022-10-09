@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import { PageHead } from '@/components/common/PageHead';
+import { Github } from '@/components/svg/Github';
 import * as styles from '@/styles/index';
 
 import type { NextPage } from 'next';
@@ -343,7 +344,11 @@ const Home: NextPage = () => {
           <li>☆</li>
           <li>☆</li>
           <li>☆</li>
-          <li>☆</li>
+          <li>
+            <a href="https://github.com/Ko-Webcreator/Portfolio" rel="noreferrer" target="_blank">
+              <Github color="inherit" size={30} />
+            </a>
+          </li>
         </ul>
       </header>
     </>
