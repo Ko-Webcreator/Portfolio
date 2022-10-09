@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { PageHead } from '@/components/common/PageHead';
 import { Github } from '@/components/svg/Github';
-import * as styles from '@/styles/index';
+import styles from '@/styles/Home.module.scss';
 
 import type { NextPage } from 'next';
 
@@ -30,18 +30,21 @@ const Home: NextPage = () => {
   useEffect(() => {
     const draftCanvas = document.getElementById('draft')! as HTMLCanvasElement;
     const canvas = document.getElementById('header')! as HTMLCanvasElement;
+    const draftCtx = draftCanvas.getContext('2d') as CanvasRenderingContext2D;
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-    const displayWidth = window.innerWidth;
-    const displayHeight = window.innerHeight;
+    // canvas requestID
+    let requestID: number;
 
-    draftCanvas.width = displayWidth;
-    draftCanvas.height = displayHeight;
-    canvas.width = displayWidth;
-    canvas.height = displayHeight;
+    const canvasEvent = () => {
+      const displayWidth = window.innerWidth;
+      const displayHeight = window.innerHeight;
 
-    if (draftCanvas.getContext && canvas.getContext) {
-      const draftCtx = draftCanvas.getContext('2d') as CanvasRenderingContext2D;
-      const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+      draftCanvas.width = displayWidth;
+      draftCanvas.height = displayHeight;
+      canvas.width = displayWidth;
+      canvas.height = displayHeight;
+
       const img = new Image(); // 新たな img 要素を作成
       img.src = 'me.png';
 
@@ -292,7 +295,7 @@ const Home: NextPage = () => {
               }
             }
             loopTextCount += 1;
-            requestAnimationFrame(textDots);
+            requestID = requestAnimationFrame(textDots);
           };
 
           textDots();
@@ -322,7 +325,15 @@ const Home: NextPage = () => {
         },
         false,
       );
-    }
+    };
+
+    canvasEvent();
+
+    window.addEventListener('resize', () => {
+      window.cancelAnimationFrame(requestID);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      canvasEvent();
+    });
   }, []);
 
   return (
@@ -331,7 +342,7 @@ const Home: NextPage = () => {
 
       <h2 className={styles.leftFixed}>Portfolio</h2>
       <header className={styles.header}>
-        <canvas className="draft" id="draft"></canvas>
+        <canvas className={styles.draft} id="draft"></canvas>
         <canvas id="header"></canvas>
         <h1>
           Ko
@@ -340,7 +351,7 @@ const Home: NextPage = () => {
         </h1>
         <div className={styles.horizontalLine} />
         <ul className={styles.verticalLine}>
-          <li className="on">★</li>
+          <li className={styles.on}>★</li>
           <li>☆</li>
           <li>☆</li>
           <li>☆</li>

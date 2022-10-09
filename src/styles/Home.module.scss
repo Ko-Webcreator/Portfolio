@@ -1,0 +1,162 @@
+@import './env/index';
+
+.leftFixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  font-size: 20rem;
+  color: var(--white);
+  text-indent: -40px;
+  opacity: 0.5;
+  writing-mode: vertical-rl;
+}
+
+.horizontalLine {
+  position: absolute;
+  right: 0;
+  bottom: 100px;
+  z-index: 20;
+  width: 50%;
+  height: 10px;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: linear-gradient(0deg, rgb(247 93 139 / 100%), rgb(254 220 64 / 100%));
+  }
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 5px);
+    content: '';
+    background: var(--black);
+  }
+}
+
+.verticalLine {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  width: 400px;
+  height: 90%;
+  padding-bottom: 200px;
+  transform: rotateY(190deg);
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: linear-gradient(0deg, rgb(247 93 139 / 100%), rgb(254 220 64 / 100%));
+  }
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 5px);
+    height: 100%;
+    content: '';
+    background: var(--black);
+  }
+
+  li {
+    position: relative;
+    z-index: 10;
+    padding-right: 40px;
+    font-size: 34px;
+    color: var(--white);
+
+    &.on {
+      animation: color-change 3s ease-in infinite reverse;
+    }
+
+    & ~ li {
+      margin-top: 10px;
+    }
+
+    &:last-of-type {
+      margin-top: 30px;
+    }
+
+    svg {
+      animation: fill-color-change 3s ease-in infinite reverse;
+    }
+  }
+}
+
+.header {
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--black);
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    z-index: 20;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+
+    // &.draft {
+    //   z-index: -1;
+    //   opacity: 0;
+    // }
+  }
+
+  h1 {
+    position: relative;
+    top: 10px;
+    left: -100px;
+    font-size: 150px;
+    color: var(--white);
+    // animation: color-change 3s ease-in infinite reverse;
+
+    @include mq(lg) {
+      font-size: get_vw(20);
+    }
+  }
+}
+
+@keyframes color-change {
+  0% {
+    color: rgb(247 93 139);
+  }
+
+  100% {
+    color: rgb(254 220 64);
+  }
+}
+
+@keyframes fill-color-change {
+  0% {
+    fill: rgb(247 93 139);
+  }
+
+  100% {
+    fill: rgb(254 220 64);
+  }
+}
