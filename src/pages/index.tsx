@@ -13,20 +13,16 @@ type DotColorPosition = {
   x: number;
   y: number;
 };
-type DotSizePosition = {
-  size: number;
-  x: number;
-  y: number;
-};
 
 type UpDownFlag = 'up' | 'down' | 'end';
 type tweenInfo = {
   endX: number;
   endY: number;
+  loopFlag: number;
   startX: number;
   startY: number;
-  upDownFlagX?: UpDownFlag;
-  upDownFlagY?: UpDownFlag;
+  upDownFlagX: UpDownFlag;
+  upDownFlagY: UpDownFlag;
 };
 
 const Home: NextPage = () => {
@@ -55,6 +51,7 @@ const Home: NextPage = () => {
             参考
             https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
             https://stackoverflow.com/questions/13660723/get-x-and-y-pixel-coordinates-when-iterating-over-html5-canvas-getimagedata
+            https://codepen.io/mouseroot/pen/XWWbgz
             ctx から 色と位置を保存する
           **/
           // 人のコピー
@@ -95,9 +92,14 @@ const Home: NextPage = () => {
           // 文字のコピー
           const fontSize = 150;
           draftCtx.font = `${fontSize}px Arial Black, sans-serif`;
-          draftCtx.fillStyle = 'red';
-          draftCtx.fillText('Ko', displayWidth / 2 - 400, displayHeight / 2);
-          draftCtx.fillText('Portfolio', displayWidth / 2 - 400, displayHeight / 2 + fontSize);
+          draftCtx.fillStyle = 'white';
+          draftCtx.textAlign = 'left';
+          draftCtx.fillText('Ko', displayWidth / 2 - fontSize * 3, displayHeight / 2);
+          draftCtx.fillText(
+            'Portfolio',
+            displayWidth / 2 - fontSize * 3,
+            displayHeight / 2 + fontSize,
+          );
 
           const headlineData = draftCtx.getImageData(0, 0, canvas.width, canvas.height);
           const headlineDotColorPositions: DotColorPosition[] = [];
@@ -130,11 +132,20 @@ const Home: NextPage = () => {
 
           // latter clear
           draftCtx.clearRect(0, 0, displayWidth, displayHeight);
-          const copyHeadlineDotColorPositions = [...headlineDotColorPositions];
 
-          // // 文字のアニメーション
+          /*
+            文字のアニメーション
+          **/
           let loopTextCount = 0;
           const headLineTweenInfo: tweenInfo[] = [];
+          const copyHeadlineDotColorPositions = [...headlineDotColorPositions];
+          // copyHeadlineDotColorPositions.length = 10000;
+          // box size
+          const size = 5;
+          // アニメーション範囲
+          const betweenSize = 100;
+          // アニメーション速度
+          let speed = 1;
 
           const getRandomArbitrary = (max: number, min: number) => {
             return Math.floor(Math.random() * (max - min) + min);
@@ -142,34 +153,17 @@ const Home: NextPage = () => {
 
           const textDots = () => {
             const moveAnimation = (
-              endX: number,
-              endY: number,
               startX: number,
               startY: number,
-              upDownFlagX?: UpDownFlag,
-              upDownFlagY?: UpDownFlag,
+              endX: number,
+              endY: number,
+              upDownFlagX: UpDownFlag,
+              upDownFlagY: UpDownFlag,
             ) => {
-              const speed = 10;
-
-              // if (i === 0) {
-              //   // 最初に up なのか down なのかを判定する
-              //   if (endX > startX) {
-              //     upDownFlagX = 'up';
-              //   } else {
-              //     upDownFlagX = 'down';
-              //   }
-              //   // 最初に up なのか down なのかを判定する
-              //   if (endY > startY) {
-              //     upDownFlagY = 'up';
-              //   } else {
-              //     upDownFlagY = 'down';
-              //   }
-              // }
-
-              if (upDownFlagX === 'up' && endX >= startX) {
+              if (upDownFlagX === 'up' && endX > startX) {
                 // up の場合
                 startX += speed;
-              } else if (upDownFlagX === 'down' && endX <= startX) {
+              } else if (upDownFlagX === 'down' && endX < startX) {
                 // downの場合
                 startX -= speed;
               } else {
@@ -177,10 +171,10 @@ const Home: NextPage = () => {
                 upDownFlagX = 'end';
               }
 
-              if (upDownFlagY === 'up' && endY >= startY) {
+              if (upDownFlagY === 'up' && endY > startY) {
                 // up の場合
                 startY += speed;
-              } else if (upDownFlagY === 'down' && endY <= startY) {
+              } else if (upDownFlagY === 'down' && endY < startY) {
                 // downの場合
                 startY -= speed;
               } else {
@@ -197,24 +191,29 @@ const Home: NextPage = () => {
             };
 
             for (let i = 0; i < copyHeadlineDotColorPositions.length; i++) {
-              if (i % 5 !== 0) continue; // 5の倍数ぐらいが速度が丁度良い
-
-              const size = 1;
-              const betweenSize = 2;
+              if (i % 1500 !== 0 || copyHeadlineDotColorPositions[i].y > displayHeight - 500)
+                // たまに下の方に表示されるので、それは除外する
+                continue;
 
               const startX = headLineTweenInfo[i]
                 ? headLineTweenInfo[i].startX
-                : copyHeadlineDotColorPositions[i].x;
+                : getRandomArbitrary(
+                    copyHeadlineDotColorPositions[i].x - betweenSize,
+                    copyHeadlineDotColorPositions[i].x + betweenSize,
+                  );
               const startY = headLineTweenInfo[i]
                 ? headLineTweenInfo[i].startY
-                : copyHeadlineDotColorPositions[i].y;
+                : getRandomArbitrary(
+                    copyHeadlineDotColorPositions[i].y - betweenSize,
+                    copyHeadlineDotColorPositions[i].y + betweenSize,
+                  );
 
               const endX = headLineTweenInfo[i]
                 ? headLineTweenInfo[i].endX
-                : getRandomArbitrary(startX - betweenSize, startX + betweenSize);
+                : copyHeadlineDotColorPositions[i].x;
               const endY = headLineTweenInfo[i]
                 ? headLineTweenInfo[i].endY
-                : getRandomArbitrary(startY - betweenSize, startY + betweenSize);
+                : copyHeadlineDotColorPositions[i].y;
 
               const prevUpDownFlagX = headLineTweenInfo[i]
                 ? headLineTweenInfo[i].upDownFlagX
@@ -231,7 +230,7 @@ const Home: NextPage = () => {
               // 前の描画を削除
               if (loopTextCount > 0) {
                 // 位置(x,y)軸から -1 ずらし、外枠(1,1)を含めて3の範囲を消す
-                ctx.clearRect(startX - 1, startY - 1, size + 2, size + 2);
+                ctx.clearRect(startX - 1, startY - 1, size + 3, size + 3);
               }
 
               // 次のXとYの位置を計算する
@@ -240,33 +239,38 @@ const Home: NextPage = () => {
                 upDownFlagY,
                 startX: nextX,
                 startY: nextY,
-              } = moveAnimation(endX, endY, startX, startY, prevUpDownFlagX, prevUpDownFlagY);
+              } = moveAnimation(startX, startY, endX, endY, prevUpDownFlagX, prevUpDownFlagY);
 
               // 描画
-              const r = 255;
-              const g = 255;
-              const b = 255;
-              const alpha = copyHeadlineDotColorPositions[i].alpha;
+              const loopFlag = headLineTweenInfo[i] ? headLineTweenInfo[i].loopFlag : 0;
+              const r = getRandomArbitrary(0, 255);
+              const g = getRandomArbitrary(0, 255);
+              const b = getRandomArbitrary(0, 255);
+              const alpha = loopTextCount < 10 ? 0 : copyHeadlineDotColorPositions[i].alpha;
               ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
               ctx.fillRect(nextX, nextY, size, size);
 
               // xとYの位置への移動が完了した時は、新しい移動位置を設定する
               if (upDownFlagX === 'end' && upDownFlagY === 'end') {
-                if (loopTextCount % 2 === 0) {
-                  // 画面内で自由な位置に移動
+                if (loopFlag % 2 === 0) {
+                  // 文字列に一旦戻る
+                  const endX = getRandomArbitrary(nextX - betweenSize, nextX + betweenSize);
+                  const endY = getRandomArbitrary(nextY - betweenSize, nextY + betweenSize);
                   headLineTweenInfo[i] = {
-                    endX: getRandomArbitrary(nextX - betweenSize, nextX + betweenSize),
-                    endY: getRandomArbitrary(nextY - betweenSize, nextY + betweenSize),
+                    endX: endX,
+                    endY: endY,
+                    loopFlag: loopFlag + 1,
                     startX: nextX,
                     startY: nextY,
-                    upDownFlagX: nextX < headlineDotColorPositions[i].x ? 'up' : 'down',
-                    upDownFlagY: nextY < headlineDotColorPositions[i].y ? 'up' : 'down',
+                    upDownFlagX: nextX < endX ? 'up' : 'down',
+                    upDownFlagY: nextY < endY ? 'up' : 'down',
                   };
                 } else {
-                  // 文字列に一旦戻る
+                  // betWeenSize の範囲で移動する
                   headLineTweenInfo[i] = {
                     endX: headlineDotColorPositions[i].x,
                     endY: headlineDotColorPositions[i].y,
+                    loopFlag: loopFlag + 1,
                     startX: nextX,
                     startY: nextY,
                     upDownFlagX: nextX < headlineDotColorPositions[i].x ? 'up' : 'down',
@@ -274,10 +278,11 @@ const Home: NextPage = () => {
                   };
                 }
               } else {
-                // flag は維持
+                // flag は維持する
                 headLineTweenInfo[i] = {
                   endX,
                   endY,
+                  loopFlag: loopFlag,
                   startX: nextX,
                   startY: nextY,
                   upDownFlagX,
@@ -286,7 +291,6 @@ const Home: NextPage = () => {
               }
             }
             loopTextCount += 1;
-
             requestAnimationFrame(textDots);
           };
 
@@ -304,9 +308,9 @@ const Home: NextPage = () => {
 
               // 描画
               const dotSize = getRandomArbitrary(0, 10);
-              const red = getRandomArbitrary(0, 255);
-              const green = getRandomArbitrary(0, 255);
-              const blue = getRandomArbitrary(0, 255);
+              const red = 255;
+              const green = 255;
+              const blue = 255;
               const alpha = copyPersonDotColorPositions[i].alpha;
               ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
               ctx.fillRect(x, y, dotSize, dotSize);
@@ -326,13 +330,21 @@ const Home: NextPage = () => {
 
       <h2 className={styles.leftFixed}>Portfolio</h2>
       <header className={styles.header}>
+        <canvas className="draft" id="draft"></canvas>
+        <canvas id="header"></canvas>
         <h1>
           Ko
           <br />
           Portfolio
         </h1>
-        <canvas className="draft" id="draft"></canvas>
-        <canvas id="header"></canvas>
+        <div className={styles.horizontalLine} />
+        <ul className={styles.verticalLine}>
+          <li className="on">★</li>
+          <li>☆</li>
+          <li>☆</li>
+          <li>☆</li>
+          <li>☆</li>
+        </ul>
       </header>
     </>
   );
