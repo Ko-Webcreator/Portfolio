@@ -33,13 +33,17 @@ const Home: NextPage = () => {
     const draftCtx = draftCanvas.getContext('2d') as CanvasRenderingContext2D;
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
+    // set windowSize
+    let displayWidth = window.innerWidth;
+    let displayHeight = window.innerHeight;
+
     // canvas requestID
     let requestID: number;
 
-    const canvasEvent = () => {
-      const displayWidth = window.innerWidth;
-      const displayHeight = window.innerHeight;
+    // breakpoints
+    const spBreakpoints = 820;
 
+    const canvasEvent = () => {
       draftCanvas.width = displayWidth;
       draftCanvas.height = displayHeight;
       canvas.width = displayWidth;
@@ -47,6 +51,11 @@ const Home: NextPage = () => {
 
       const img = new Image(); // 新たな img 要素を作成
       img.src = 'me.png';
+
+      const get_vw = (size: number, viewport = 375) => {
+        const rate = 100 / viewport;
+        return rate * size * (displayWidth / 100);
+      };
 
       img.addEventListener(
         'load',
@@ -94,7 +103,10 @@ const Home: NextPage = () => {
           draftCtx.clearRect(0, 0, displayWidth, displayHeight);
 
           // 文字のコピー
-          const fontSize = 150;
+          let fontSize = 150;
+          if (window.innerWidth <= spBreakpoints) {
+            fontSize = get_vw(60);
+          }
           draftCtx.font = `${fontSize}px Arial Black, sans-serif`;
           draftCtx.fillStyle = 'white';
           draftCtx.textAlign = 'left';
@@ -145,9 +157,13 @@ const Home: NextPage = () => {
           const copyHeadlineDotColorPositions = [...headlineDotColorPositions];
           // copyHeadlineDotColorPositions.length = 10000;
           // box size
-          const size = 5;
+          let size = 5;
+
           // アニメーション範囲
-          const betweenSize = 100;
+          let betweenSize = 100;
+          if (displayWidth <= spBreakpoints) {
+            betweenSize = 40;
+          }
           // アニメーション速度
           let speed = 1;
 
@@ -195,9 +211,22 @@ const Home: NextPage = () => {
             };
 
             for (let i = 0; i < copyHeadlineDotColorPositions.length; i++) {
-              if (i % 1500 !== 0 || copyHeadlineDotColorPositions[i].y > displayHeight - 500)
-                // たまに下の方に表示されるので、それは除外する
-                continue;
+              if (displayWidth <= spBreakpoints) {
+                //SP 版
+                let maxCount = 1000;
+                if (displayWidth > 500) {
+                  // SP 版は copyHeadlineDotColorPositions.length の Max 値を決める
+                  maxCount = 2000;
+                }
+
+                if (i % maxCount !== 0 || copyHeadlineDotColorPositions[i].y > displayHeight - 100)
+                  // たまに下の方に表示されるので、それは除外する
+                  continue;
+              } else {
+                if (i % 1500 !== 0 || copyHeadlineDotColorPositions[i].y > displayHeight - 500)
+                  // たまに下の方に表示されるので、それは除外する
+                  continue;
+              }
 
               const startX = headLineTweenInfo[i]
                 ? headLineTweenInfo[i].startX
@@ -332,6 +361,8 @@ const Home: NextPage = () => {
     window.addEventListener('resize', () => {
       window.cancelAnimationFrame(requestID);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      displayWidth = window.innerWidth;
+      displayHeight = window.innerHeight;
       canvasEvent();
     });
   }, []);
