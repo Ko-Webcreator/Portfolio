@@ -107,15 +107,23 @@ const Home: NextPage = () => {
           if (window.innerWidth <= spBreakpoints) {
             fontSize = get_vw(60);
           }
-          draftCtx.font = `${fontSize}px Arial Black, sans-serif`;
-          draftCtx.fillStyle = 'white';
-          draftCtx.textAlign = 'left';
-          draftCtx.fillText('Ko', displayWidth / 2 - fontSize * 3, displayHeight / 2);
-          draftCtx.fillText(
-            'Portfolio',
-            displayWidth / 2 - fontSize * 3,
-            displayHeight / 2 + fontSize,
-          );
+          draftCtx.font = `bold ${fontSize}px sans-serif`;
+          draftCtx.fillStyle = 'red';
+          if (displayWidth <= spBreakpoints) {
+            draftCtx.fillText('Ko', displayWidth / 2 - get_vw(165), displayHeight / 2 - get_vw(12));
+            draftCtx.fillText(
+              'Portfolio',
+              displayWidth / 2 - get_vw(165),
+              displayHeight / 2 + get_vw(50),
+            );
+          } else {
+            draftCtx.fillText('Ko', displayWidth / 2 - 390, displayHeight / 2 - 20);
+            draftCtx.fillText(
+              'Portfolio',
+              displayWidth / 2 - 390,
+              displayHeight / 2 + fontSize - 20,
+            );
+          }
 
           const headlineData = draftCtx.getImageData(0, 0, canvas.width, canvas.height);
           const headlineDotColorPositions: DotColorPosition[] = [];
@@ -223,7 +231,7 @@ const Home: NextPage = () => {
                   // たまに下の方に表示されるので、それは除外する
                   continue;
               } else {
-                if (i % 1500 !== 0 || copyHeadlineDotColorPositions[i].y > displayHeight - 500)
+                if (i % 1500 !== 0 || copyHeadlineDotColorPositions[i].y > displayHeight - 100)
                   // たまに下の方に表示されるので、それは除外する
                   continue;
               }
