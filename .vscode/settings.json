@@ -9,5 +9,5 @@
   },
   "css.validate": false,
   "scss.validate": false,
-  "cSpell.words": ["gsap"]
+  "cSpell.words": ["gsap", "pixi"]
 }
