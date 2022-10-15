@@ -1,97 +1,59 @@
 @import './env/index';
 
-.aside {
+.rect {
   position: fixed;
   top: 0;
-  left: 0;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-}
-
-.leftFixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 50;
-  font-size: 25vh;
-  color: var(--white);
-  text-indent: -2vh;
-  opacity: 0.1;
-  writing-mode: vertical-rl;
-}
-
-.horizontalLine {
-  position: absolute;
-  right: 0;
-  bottom: 10vh;
-  z-index: 50;
-  width: 50%;
-  height: 10px;
-  background: linear-gradient(0deg, rgb(247 93 139 / 100%), rgb(254 220 64 / 100%));
-
-  @include mq(md) {
-    width: 80%;
-  }
-}
-
-.menu {
-  position: absolute;
   right: 0;
   bottom: 0;
-  z-index: 50;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  width: 100px;
-  height: 90%;
-  padding-bottom: 15vh;
-  transform: rotateY(190deg);
+  left: 0;
+  z-index: 0;
+  width: 800px;
+  height: 500px;
+  margin: auto;
+  overflow: hidden;
 
   @include mq(md) {
-    width: get_vw(60);
+    width: get_vw(300);
+    height: get_vw(160);
+    border: none;
   }
 
-  &.verticalLine {
-    right: 100px;
-    width: 10px;
-    background: linear-gradient(0deg, rgb(247 93 139 / 100%), rgb(254 220 64 / 100%));
-
-    @include mq(md) {
-      right: get_vw(60);
-    }
+  &::before {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    z-index: -2;
+    width: 200%;
+    height: 200%;
+    content: '';
+    background-color: #399953;
+    background-image: linear-gradient(var(--color-white), var(--color-white)),
+      linear-gradient(var(--color-black), var(--color-black)),
+      linear-gradient(var(--color-white), var(--color-white)),
+      linear-gradient(var(--color-black), var(--color-black));
+    background-repeat: no-repeat;
+    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+    background-size: 50% 50%, 50% 50%;
+    animation: rotate 10s linear infinite;
   }
 
-  li {
-    position: relative;
-    z-index: 10;
-    font-size: 34px;
-    color: var(--white);
+  &::after {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    z-index: -1;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    content: '';
+    background: var(--color-black);
+    border-radius: 5px;
+    opacity: 1;
+  }
+}
 
-    &.on {
-      animation: color-change 3s ease-in infinite reverse;
-    }
-
-    & ~ li {
-      margin-top: 20px;
-
-      @include mq(md) {
-        margin-top: 2vh;
-      }
-    }
-
-    &:last-of-type {
-      margin-top: 40px;
-
-      @include mq(md) {
-        margin-top: 4vh;
-      }
-    }
-
-    svg {
-      animation: fill-color-change 3s ease-in infinite reverse;
-    }
+@keyframes rotate {
+  100% {
+    transform: rotate(1turn);
   }
 }
 
@@ -102,15 +64,5 @@
 
   100% {
     color: rgb(254 220 64);
-  }
-}
-
-@keyframes fill-color-change {
-  0% {
-    fill: rgb(247 93 139);
-  }
-
-  100% {
-    fill: rgb(254 220 64);
   }
 }

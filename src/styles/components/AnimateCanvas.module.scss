@@ -5,21 +5,4 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-
-  &.under {
-    z-index: 0;
-  }
-
-  &.middle {
-    z-index: 50;
-  }
-
-  &.up {
-    z-index: 100;
-  }
-
-  // &.draft {
-  //   z-index: -1;
-  //   opacity: 0;
-  // }
 }

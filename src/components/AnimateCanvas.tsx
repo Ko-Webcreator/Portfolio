@@ -29,11 +29,6 @@ const AnimateCanvas = () => {
     // breakpoints
     const spBreakpoints = 920;
 
-    //アニメーション
-    const tweenAnimate = ({ duration, obj, toX, toY }: TweenAnimate) => {
-      console.log(duration, obj, toX, toY);
-    };
-
     //vw計算
     const get_vw = (size: number, viewport = 375) => {
       const rate = 100 / viewport;
@@ -123,11 +118,18 @@ const AnimateCanvas = () => {
         ctx.font = `bold ${fontSize}px sans-serif`;
         ctx.fillStyle = 'red';
         if (displayWidth <= spBreakpoints) {
-          ctx.fillText('Ko', displayWidth / 2 - get_vw(165), displayHeight / 2 - get_vw(12));
-          ctx.fillText('Portfolio', displayWidth / 2 - get_vw(165), displayHeight / 2 + get_vw(50));
+          const left = 135;
+          ctx.fillText('Ko', displayWidth / 2 - get_vw(left), displayHeight / 2 - get_vw(12));
+          ctx.fillText(
+            'Portfolio',
+            displayWidth / 2 - get_vw(left),
+            displayHeight / 2 + get_vw(50),
+          );
         } else {
-          ctx.fillText('Ko', displayWidth / 2 - 320, displayHeight / 2 - 20);
-          ctx.fillText('Portfolio', displayWidth / 2 - 320, displayHeight / 2 + fontSize - 20);
+          const left = 270;
+          const top = 20;
+          ctx.fillText('Ko', displayWidth / 2 - left, displayHeight / 2 - top);
+          ctx.fillText('Portfolio', displayWidth / 2 - left, displayHeight / 2 + fontSize - top);
         }
 
         const headlineData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -195,7 +197,7 @@ const AnimateCanvas = () => {
 
   return (
     <>
-      <canvas className={`${styles.canvas} ${styles.down}`} id="canvas" />
+      <canvas className={`${styles.canvas}`} id="canvas" />
     </>
   );
 };

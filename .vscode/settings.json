@@ -1,7 +1,5 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "stylelint.stylelintPath": "node_modules/stylelint",
-  "stylelint.validate": ["css", "scss"],
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,

@@ -4,6 +4,7 @@ import { PageHead } from '@/components/common/PageHead';
 import { Github } from '@/components/svg/Github';
 import AsideStyles from '@/styles/Aside.module.scss';
 import HomeStyles from '@/styles/Home.module.scss';
+import NavStyles from '@/styles/Nav.module.scss';
 
 import type { NextPage } from 'next';
 
@@ -15,12 +16,13 @@ const Home: NextPage = () => {
   return (
     <>
       <PageHead description="Ko Portfolio" />
-      <aside className={AsideStyles.aside}>
-        <h2 className={AsideStyles.leftFixed}>Portfolio</h2>
-        <div className={AsideStyles.horizontalLine} />
-        <div className={`${AsideStyles.menu} ${AsideStyles.verticalLine}`} />
-        <ul className={AsideStyles.menu}>
-          <li className={AsideStyles.on}>★</li>
+      <aside className={AsideStyles.rect} />
+      <nav className={NavStyles.nav}>
+        <h2 className={NavStyles.leftFixed} data-text="Portfolio">
+          Portfolio
+        </h2>
+        <ul className={NavStyles.menu}>
+          <li className={NavStyles.on}>★</li>
           <li>☆</li>
           <li>☆</li>
           <li>☆</li>
@@ -30,14 +32,13 @@ const Home: NextPage = () => {
             </a>
           </li>
         </ul>
-      </aside>
+      </nav>
       <header className={HomeStyles.header}>
         <h1>
           Ko
           <br />
           Portfolio
         </h1>
-        <div className={HomeStyles.rect} />
         <AnimateCanvas />
       </header>
     </>
