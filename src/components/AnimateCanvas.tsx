@@ -27,7 +27,7 @@ const AnimateCanvas = () => {
     let displayHeight = window.innerHeight;
 
     // breakpoints
-    const spBreakpoints = 900;
+    const spBreakpoints = 920;
 
     //アニメーション
     const tweenAnimate = ({ duration, obj, toX, toY }: TweenAnimate) => {
