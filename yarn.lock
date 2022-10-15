@@ -1718,6 +1718,11 @@
   "resolved" "https://registry.npmjs.org/known-css-properties/-/known-css-properties-0.25.0.tgz"
   "version" "0.25.0"
 
+"konva@^8.3.13":
+  "integrity" "sha512-O5VxHfRfTj4PscTglQH1NimS8+CC5hQYLeB8YQstu8MN/i2L8GjA1T9d7xxzITF2TD5+xcIs5ei7en3cztbNXg=="
+  "resolved" "https://registry.npmjs.org/konva/-/konva-8.3.13.tgz"
+  "version" "8.3.13"
+
 "language-subtag-registry@~0.3.2":
   "integrity" "sha512-tN0MCzyWnoz/4nHS6uxdlFWoUZT7ABptwKPQ52Ea7URk6vll88bWBVhodtnlfEuCcKWNGoc+uGbw1cwa9IKh/w=="
   "resolved" "https://registry.npmjs.org/language-subtag-registry/-/language-subtag-registry-0.3.22.tgz"

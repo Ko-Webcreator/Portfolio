@@ -2,7 +2,8 @@ import dynamic from 'next/dynamic';
 
 import { PageHead } from '@/components/common/PageHead';
 import { Github } from '@/components/svg/Github';
-import styles from '@/styles/Home.module.scss';
+import AsideStyles from '@/styles/Aside.module.scss';
+import HomeStyles from '@/styles/Home.module.scss';
 
 import type { NextPage } from 'next';
 
@@ -14,17 +15,12 @@ const Home: NextPage = () => {
   return (
     <>
       <PageHead description="Ko Portfolio" />
-      <h2 className={styles.leftFixed}>Portfolio</h2>
-      <header className={styles.header}>
-        <h1>
-          Ko
-          <br />
-          Portfolio
-        </h1>
-        <AnimateCanvas />
-        <div className={styles.horizontalLine} />
-        <ul className={styles.verticalLine}>
-          <li className={styles.on}>★</li>
+      <aside className={AsideStyles.aside}>
+        <h2 className={AsideStyles.leftFixed}>Portfolio</h2>
+        <div className={AsideStyles.horizontalLine} />
+        <div className={`${AsideStyles.menu} ${AsideStyles.verticalLine}`} />
+        <ul className={AsideStyles.menu}>
+          <li className={AsideStyles.on}>★</li>
           <li>☆</li>
           <li>☆</li>
           <li>☆</li>
@@ -34,6 +30,15 @@ const Home: NextPage = () => {
             </a>
           </li>
         </ul>
+      </aside>
+      <header className={HomeStyles.header}>
+        <h1>
+          Ko
+          <br />
+          Portfolio
+        </h1>
+        <div className={HomeStyles.rect} />
+        <AnimateCanvas />
       </header>
     </>
   );

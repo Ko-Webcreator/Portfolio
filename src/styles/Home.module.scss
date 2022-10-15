@@ -1,122 +1,5 @@
 @import './env/index';
 
-.leftFixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  font-size: 25vh;
-  color: var(--white);
-  text-indent: -2vh;
-  opacity: 0.1;
-  writing-mode: vertical-rl;
-}
-
-.horizontalLine {
-  position: absolute;
-  right: 0;
-  bottom: 10vh;
-  z-index: 0;
-  width: 50%;
-  height: 10px;
-
-  @include mq(md) {
-    width: 80%;
-  }
-
-  &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    content: '';
-    background: linear-gradient(0deg, rgb(247 93 139 / 100%), rgb(254 220 64 / 100%));
-  }
-
-  &::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: calc(100% - 5px);
-    content: '';
-    background: var(--black);
-  }
-}
-
-.verticalLine {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  width: 100px;
-  height: 90%;
-  padding-bottom: 15vh;
-  transform: rotateY(190deg);
-
-  @include mq(md) {
-    width: get_vw(60);
-  }
-
-  &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    content: '';
-    background: linear-gradient(0deg, rgb(247 93 139 / 100%), rgb(254 220 64 / 100%));
-  }
-
-  &::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: calc(100% - 5px);
-    height: 100%;
-    content: '';
-    background: var(--black);
-  }
-
-  li {
-    position: relative;
-    z-index: 10;
-    font-size: 34px;
-    color: var(--white);
-
-    &.on {
-      animation: color-change 3s ease-in infinite reverse;
-    }
-
-    & ~ li {
-      margin-top: 20px;
-
-      @include mq(md) {
-        margin-top: 2vh;
-      }
-    }
-
-    &:last-of-type {
-      margin-top: 40px;
-
-      @include mq(md) {
-        margin-top: 4vh;
-      }
-    }
-
-    svg {
-      animation: fill-color-change 3s ease-in infinite reverse;
-    }
-  }
-}
-
 .header {
   z-index: 0;
   display: flex;
@@ -128,11 +11,12 @@
 
   h1 {
     position: relative;
-    top: 10px;
+    top: 5px;
     left: -50px;
     z-index: 10;
     font-family: sans-serif;
-    font-size: 150px;
+    font-size: 120px;
+    color: var(--black);
     text-shadow: 2px 2px 3px rgb(255 255 255 / 95%);
     background-clip: text;
     // animation: color-change 3s ease-in infinite reverse;
@@ -145,6 +29,38 @@
   }
 }
 
+.rect {
+  position: absolute;
+  right: 0;
+  left: -100px;
+  z-index: 0;
+  box-sizing: border-box;
+  width: 800px;
+  height: 500px;
+  margin: auto;
+  overflow: hidden;
+  border: 5px solid #fff;
+
+  @include mq(md) {
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: url('/head.jpg') no-repeat;
+    background-size: 100% 100%;
+  }
+}
+
 @keyframes color-change {
   0% {
     color: rgb(247 93 139);
@@ -152,15 +68,5 @@
 
   100% {
     color: rgb(254 220 64);
-  }
-}
-
-@keyframes fill-color-change {
-  0% {
-    fill: rgb(247 93 139);
-  }
-
-  100% {
-    fill: rgb(254 220 64);
   }
 }

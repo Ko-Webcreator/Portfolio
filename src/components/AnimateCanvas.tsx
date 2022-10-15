@@ -1,8 +1,6 @@
-import * as PIXI from 'pixi.js';
 import { useEffect } from 'react';
 
 import styles from '@/styles/components/AnimateCanvas.module.scss';
-
 type DotColorPosition = {
   alpha: number;
   blue: number;
@@ -12,53 +10,46 @@ type DotColorPosition = {
   y: number;
 };
 
-type UpDownFlag = 'up' | 'down' | 'end';
-
-type tweenInfo = {
-  endX: number;
-  endY: number;
-  loopFlag: number;
-  startX: number;
-  startY: number;
-  upDownFlagX: UpDownFlag;
-  upDownFlagY: UpDownFlag;
+type TweenAnimate = {
+  duration: number;
+  obj: DotColorPosition;
+  toX: number;
+  toY: number;
 };
 
 const AnimateCanvas = () => {
   useEffect(() => {
-    const upCanvas = document.getElementById('up')! as HTMLCanvasElement;
-    const middleCanvas = document.getElementById('middle')! as HTMLCanvasElement;
-    const underCanvas = document.getElementById('under')! as HTMLCanvasElement;
-    const upCtx = upCanvas.getContext('2d') as CanvasRenderingContext2D;
-    const middleCtx = middleCanvas.getContext('2d') as CanvasRenderingContext2D;
+    const canvas = document.getElementById('canvas')! as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
     // set windowSize
     let displayWidth = window.innerWidth;
     let displayHeight = window.innerHeight;
 
     // breakpoints
-    const spBreakpoints = 820;
+    const spBreakpoints = 900;
+
+    //アニメーション
+    const tweenAnimate = ({ duration, obj, toX, toY }: TweenAnimate) => {
+      console.log(duration, obj, toX, toY);
+    };
+
+    //vw計算
+    const get_vw = (size: number, viewport = 375) => {
+      const rate = 100 / viewport;
+      return rate * size * (displayWidth / 100);
+    };
+
+    //平均計算
+    const getRandomArbitrary = (min: number, max: number) => {
+      return Math.floor(Math.random() * (max - min) + min);
+    };
 
     const canvasEvent = () => {
-      upCanvas.width = displayWidth;
-      upCanvas.height = displayHeight;
-      middleCanvas.width = displayWidth;
-      middleCanvas.height = displayHeight;
+      canvas.width = displayWidth;
+      canvas.height = displayHeight;
 
-      //set PixiJS
-      const underApp = new PIXI.Application({
-        antialias: true,
-        backgroundAlpha: 0,
-        height: displayHeight,
-        resolution: window.devicePixelRatio || 1,
-        view: underCanvas,
-        width: displayWidth,
-      });
-
-      const source = [
-        { name: 'me', src: 'me.png' },
-        { name: 'head', src: 'head.jpg' },
-      ];
+      const source = [{ name: 'me', src: 'me.png' }];
       const images: { name: string; obj: HTMLImageElement }[] = [];
       source.forEach((_, i) => {
         images[i] = {
@@ -80,14 +71,7 @@ const AnimateCanvas = () => {
         );
       });
 
-      const get_vw = (size: number, viewport = 375) => {
-        const rate = 100 / viewport;
-        return rate * size * (displayWidth / 100);
-      };
-
       const loaded = () => {
-        console.log('loaded');
-
         /*
             参考
             https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
@@ -101,9 +85,9 @@ const AnimateCanvas = () => {
         const imageHeight = imageWidth * 1.11; // 比率
         const imageX = displayWidth - imageWidth;
         const imageY = displayHeight - imageHeight;
-        upCtx.drawImage(nameImg.obj, imageX, imageY, imageWidth, imageHeight);
+        ctx.drawImage(nameImg.obj, imageX, imageY, imageWidth, imageHeight);
 
-        const personData = upCtx.getImageData(0, 0, upCanvas.width, upCanvas.height);
+        const personData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const personDotColorPositions: DotColorPosition[] = [];
 
         for (var i = personData.data.length; i >= 0; i -= 4) {
@@ -128,29 +112,25 @@ const AnimateCanvas = () => {
           personDotColorPositions.push(defaultDotColorPosition);
         }
 
-        // image clear
-        upCtx.clearRect(0, 0, displayWidth, displayHeight);
+        // 画像をクリア
+        ctx.clearRect(0, 0, displayWidth, displayHeight);
 
         // 文字のコピー
-        let fontSize = 150;
+        let fontSize = 120;
         if (window.innerWidth <= spBreakpoints) {
           fontSize = get_vw(60);
         }
-        upCtx.font = `bold ${fontSize}px sans-serif`;
-        upCtx.fillStyle = 'red';
+        ctx.font = `bold ${fontSize}px sans-serif`;
+        ctx.fillStyle = 'red';
         if (displayWidth <= spBreakpoints) {
-          upCtx.fillText('Ko', displayWidth / 2 - get_vw(165), displayHeight / 2 - get_vw(12));
-          upCtx.fillText(
-            'Portfolio',
-            displayWidth / 2 - get_vw(165),
-            displayHeight / 2 + get_vw(50),
-          );
+          ctx.fillText('Ko', displayWidth / 2 - get_vw(165), displayHeight / 2 - get_vw(12));
+          ctx.fillText('Portfolio', displayWidth / 2 - get_vw(165), displayHeight / 2 + get_vw(50));
         } else {
-          upCtx.fillText('Ko', displayWidth / 2 - 390, displayHeight / 2 - 20);
-          upCtx.fillText('Portfolio', displayWidth / 2 - 390, displayHeight / 2 + fontSize - 20);
+          ctx.fillText('Ko', displayWidth / 2 - 320, displayHeight / 2 - 20);
+          ctx.fillText('Portfolio', displayWidth / 2 - 320, displayHeight / 2 + fontSize - 20);
         }
 
-        const headlineData = upCtx.getImageData(0, 0, upCanvas.width, upCanvas.height);
+        const headlineData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const headlineDotColorPositions: DotColorPosition[] = [];
 
         for (var i = headlineData.data.length; i >= 0; i -= 4) {
@@ -175,56 +155,15 @@ const AnimateCanvas = () => {
           headlineDotColorPositions.push(defaultDotColorPosition);
         }
 
-        // latter clear
-        upCtx.clearRect(0, 0, displayWidth, displayHeight);
-
-        /*
-          背景のアニメーション
-        **/
-        const headImg = images.find((e) => e.name === 'head')!;
-
-        upCtx.drawImage(headImg.obj, 0, 0, displayWidth, displayHeight);
-
-        const bgData = upCtx.getImageData(0, 0, upCanvas.width, upCanvas.height);
-        const bgDotColorPositions: DotColorPosition[] = [];
-
-        upCtx.clearRect(0, 0, displayWidth, displayHeight);
-
-        for (var i = bgData.data.length; i >= 0; i -= 4) {
-          const red = bgData.data[i];
-          const green = bgData.data[i + 1];
-          const blue = bgData.data[i + 2];
-          const alpha = bgData.data[i + 3] / 255;
-
-          if (red === 0 && green === 0 && blue === 0) continue; //何も色がない所は表示しない
-
-          const x = (i / 4) % bgData.width;
-          const y = Math.floor(i / 4 / bgData.width);
-          const defaultDotColorPosition: DotColorPosition = {
-            alpha,
-            blue,
-            green,
-            red,
-            x,
-            y,
-          };
-
-          const rgba = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
-          upCtx.fillStyle = rgba;
-          upCtx.fillRect(x, y, 1, 1);
-
-          bgDotColorPositions.push(defaultDotColorPosition);
-        }
+        // 文字をクリア
+        ctx.clearRect(0, 0, displayWidth, displayHeight);
 
         /*
             文字
         　**/
+        const size = 1;
         const copyHeadlineColorPositions = [...headlineDotColorPositions];
-
         const textDots = () => {
-          // box size
-          let size = 1;
-
           for (let i = 0; i < copyHeadlineColorPositions.length; i++) {
             // 描画
             const x = copyHeadlineColorPositions[i].x;
@@ -233,8 +172,9 @@ const AnimateCanvas = () => {
             const g = 255;
             const b = 255;
             const alpha = copyHeadlineColorPositions[i].alpha;
-            upCtx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-            upCtx.fillRect(x, y, size, size);
+            ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            ctx.fillRect(x, y, size, size);
+            // ctx.clearRect(x, y, size, size);
           }
         };
         textDots();
@@ -244,18 +184,18 @@ const AnimateCanvas = () => {
     canvasEvent();
 
     window.addEventListener('resize', () => {
-      upCtx.clearRect(0, 0, underCanvas.width, underCanvas.height);
+      // clearInterval(clearID);
       displayWidth = window.innerWidth;
       displayHeight = window.innerHeight;
+      ctx.clearRect(0, 0, displayWidth, displayHeight);
+
       canvasEvent();
     });
   }, []);
 
   return (
     <>
-      <canvas className={`${styles.canvas} ${styles.up}`} id="up" />
-      <canvas className={`${styles.canvas} ${styles.middle}`} id="middle" />
-      <canvas className={`${styles.canvas} ${styles.under}`} id="under" />
+      <canvas className={`${styles.canvas} ${styles.down}`} id="canvas" />
     </>
   );
 };
