@@ -1,0 +1,51 @@
+@import './env/index';
+
+.section {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.leftFixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  font-size: 25vh;
+  color: var(--color-white);
+  text-indent: -2vh;
+  opacity: 0.1;
+  writing-mode: vertical-rl;
+}
+
+.githubIcon {
+  position: absolute;
+  right: 30px;
+  bottom: 60px;
+  z-index: 50;
+  display: block;
+  animation: fill-color-change 3s ease-in infinite reverse;
+
+  @include mq(md) {
+    right: 15px;
+    bottom: 30px;
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+@keyframes fill-color-change {
+  0% {
+    fill: rgb(247 93 139);
+  }
+
+  100% {
+    fill: rgb(254 220 64);
+  }
+}

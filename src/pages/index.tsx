@@ -3,8 +3,9 @@ import dynamic from 'next/dynamic';
 import { PageHead } from '@/components/common/PageHead';
 import { Github } from '@/components/svg/Github';
 import AsideStyles from '@/styles/Aside.module.scss';
-import HomeStyles from '@/styles/Home.module.scss';
-import NavStyles from '@/styles/Nav.module.scss';
+import HeaderStyles from '@/styles/Header.module.scss';
+import MainStyles from '@/styles/Main.module.scss';
+import SectionStyles from '@/styles/Section.module.scss';
 
 import type { NextPage } from 'next';
 
@@ -17,23 +18,20 @@ const Home: NextPage = () => {
     <>
       <PageHead description="Ko Portfolio" />
       <aside className={AsideStyles.rect} />
-      <nav className={NavStyles.nav}>
-        <h2 className={NavStyles.leftFixed} data-text="Portfolio">
+      <section className={SectionStyles.section}>
+        <h2 className={SectionStyles.leftFixed} data-text="Portfolio">
           Portfolio
         </h2>
-        <ul className={NavStyles.menu}>
-          <li className={NavStyles.on}>★</li>
-          <li>☆</li>
-          <li>☆</li>
-          <li>☆</li>
-          <li>
-            <a href="https://github.com/Ko-Webcreator/Portfolio" rel="noreferrer" target="_blank">
-              <Github color="inherit" size={30} />
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <header className={HomeStyles.header}>
+        <a
+          className={SectionStyles.githubIcon}
+          href="https://github.com/Ko-Webcreator/Portfolio"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <Github color="inherit" size={50} />
+        </a>
+      </section>
+      <header className={HeaderStyles.header}>
         <h1>
           Ko
           <br />
@@ -41,6 +39,7 @@ const Home: NextPage = () => {
         </h1>
         <AnimateCanvas />
       </header>
+      <main className={MainStyles.main}></main>
     </>
   );
 };
