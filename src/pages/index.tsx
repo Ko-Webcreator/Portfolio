@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
 
 import { PageHead } from '@/components/common/PageHead';
-import { Github } from '@/components/svg/Github';
 import AsideStyles from '@/styles/Aside.module.scss';
 import HeaderStyles from '@/styles/Header.module.scss';
 import MainStyles from '@/styles/Main.module.scss';
@@ -28,7 +27,7 @@ const Home: NextPage = () => {
           rel="noreferrer"
           target="_blank"
         >
-          <Github color="inherit" size={50} />
+          {/* <Github color="inherit" size={50} /> */}
         </a>
       </section>
       <header className={HeaderStyles.header}>
@@ -38,6 +37,9 @@ const Home: NextPage = () => {
           Portfolio
         </h1>
         <AnimateCanvas />
+        <div className={HeaderStyles.arrow}>
+          <div className={HeaderStyles.arrowInner} />
+        </div>
       </header>
       <main className={MainStyles.main}></main>
     </>

@@ -30,6 +30,7 @@
   animation: fill-color-change 3s ease-in infinite reverse;
 
   @include mq(md) {
+    display: none;
     right: 15px;
     bottom: 30px;
 
