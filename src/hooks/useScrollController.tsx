@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useRef } from 'react';
+
+import { Log } from '@/libs/log';
 type firstViewToggle = 'up' | 'down';
 
 /**
- * scroll controller を定義
+ * scrollのコントロールを定義
  */
 export const useScrollController = () => {
   const pageY = useRef<HTMLDivElement>(null!);
@@ -39,7 +41,7 @@ export const useScrollController = () => {
         return p * (2 - p);
       };
       let move = function () {
-        console.log('requestAnimationFrame');
+        Log.debug('requestAnimationFrame');
         // 実際にスクロールを行う
 
         if (toggle == 'down') {

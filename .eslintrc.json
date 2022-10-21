@@ -26,6 +26,15 @@
     "react/jsx-sort-props": "error",
     "sort-keys-fix/sort-keys-fix": "error",
     "typescript-sort-keys/interface": "error",
-    "unused-imports/no-unused-imports": "error"
-  }
+    "unused-imports/no-unused-imports": "error",
+    "no-console": "error"
+  },
+  "overrides": [
+    {
+      "files": ["Log.dev.ts"],
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ]
 }
