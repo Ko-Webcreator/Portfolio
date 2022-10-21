@@ -1,6 +1,6 @@
 // prod環境では何も出力させない
 function debug(message?: any, ...optionalParams: any[]): void {}
 
-const Logger = { debug };
+const Log = { debug };
 
-export default Logger;
+export default Log;

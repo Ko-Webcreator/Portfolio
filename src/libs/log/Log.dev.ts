@@ -3,6 +3,6 @@ function debug(message?: any, ...params: any[]): void {
   console.info(...messages);
 }
 
-const Logger = { debug };
+const Log = { debug };
 
-export default Logger;
+export default Log;
