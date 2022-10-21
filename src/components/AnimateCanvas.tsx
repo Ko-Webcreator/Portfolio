@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import styles from '@/styles/components/AnimateCanvas.module.scss';
+
 type DotColorPosition = {
   alpha: number;
   blue: number;
@@ -8,13 +9,6 @@ type DotColorPosition = {
   red: number;
   x: number;
   y: number;
-};
-
-type TweenAnimate = {
-  duration: number;
-  obj: DotColorPosition;
-  toX: number;
-  toY: number;
 };
 
 const AnimateCanvas = () => {
@@ -33,11 +27,6 @@ const AnimateCanvas = () => {
     const get_vw = (size: number, viewport = 375) => {
       const rate = 100 / viewport;
       return rate * size * (displayWidth / 100);
-    };
-
-    //平均計算
-    const getRandomArbitrary = (min: number, max: number) => {
-      return Math.floor(Math.random() * (max - min) + min);
     };
 
     const canvasEvent = () => {
