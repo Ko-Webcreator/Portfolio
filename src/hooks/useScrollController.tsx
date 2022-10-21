@@ -31,7 +31,7 @@ export const useScrollController = () => {
   }, [main]);
 
   const scrollAnimation = useCallback(
-    (position: number, range: number, toggle: firstViewToggle) => {
+    (position: number, range: number, toggleType: firstViewToggle) => {
       let currentPosition = 0; // スクロールする位置
       let progress = 0; // 現在の進捗 0 ～ 100
       let animationID: number;
@@ -41,10 +41,10 @@ export const useScrollController = () => {
         return p * (2 - p);
       };
       let move = function () {
-        Log.debug('requestAnimationFrame', toggle);
+        Log.debug('requestAnimationFrame');
         // 実際にスクロールを行う
 
-        if (toggle == 'down') {
+        if (toggleType == 'down') {
           progress++; // 進捗を進める
           currentPosition = range * easeOut(progress / 100); // スクロールする位置を計算する
           pageY.current.style.transform = `translateY(-${currentPosition}px)`;
