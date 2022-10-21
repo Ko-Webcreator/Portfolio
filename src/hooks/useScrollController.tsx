@@ -41,7 +41,7 @@ export const useScrollController = () => {
         return p * (2 - p);
       };
       let move = function () {
-        Log.debug('requestAnimationFrame');
+        Log.debug('requestAnimationFrame', toggle);
         // 実際にスクロールを行う
 
         if (toggle == 'down') {
@@ -97,7 +97,10 @@ export const useScrollController = () => {
       } else if (deltaY < 0 && translateYRef.current < 0) {
         // 上スクロール
 
-        if (translateYRef.current < header.current.clientHeight && isDownScrollingRef.current) {
+        if (
+          Math.abs(translateYRef.current) < header.current.clientHeight &&
+          isDownScrollingRef.current
+        ) {
           // トップにスクロール
           isDownScrollingRef.current = false;
           scrollAnimation(Math.abs(translateYRef.current), 0, 'up');
