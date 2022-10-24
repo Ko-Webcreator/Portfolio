@@ -1,24 +1,21 @@
 @import './env/index';
 
 .header {
-  z-index: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  background: var(--color-black);
 
   h1 {
     position: relative;
     top: 5px;
     left: 0;
-    z-index: 10;
+    z-index: 20;
     font-family: sans-serif;
     font-size: 120px;
-    color: var(--color-black);
     text-shadow: 2px 2px 3px rgb(255 255 255 / 95%);
-    background-clip: text;
+    z-index: 30;
 
     @include mq(md) {
       top: 0;
@@ -27,95 +24,80 @@
   }
 }
 
-.arrow {
-  width: 60px;
-  height: 60px;
-  position: absolute;
+.leftFixed {
+  position: fixed;
+  top: 0;
   left: 0;
+  z-index: 50;
+  font-size: 25vh;
+  color: var(--color-white);
+  text-indent: -2vh;
+  opacity: 0.1;
+  writing-mode: vertical-rl;
+}
+
+.rect {
+  position: fixed;
+  top: 0;
   right: 0;
-  bottom: 40px;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  width: 800px;
+  height: 500px;
   margin: auto;
-  background: var(--color-white);
-  border-radius: 100%;
-  // border-radius: 115% 140% 145% 110%/125% 140% 110% 125%;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    z-index: 0;
-    left: 50%;
-    top: 50%;
-  }
-
-  &::before {
-    width: 110%;
-    height: 110%;
-    background: var(--color-white);
-    border-radius: 50%;
-    animation: pulse 2s ease-out infinite;
-    transform: translateX(-50%) translateY(-50%);
-  }
-
-  &::after {
-    content: '';
-    width: 80%;
-    height: 80%;
-    background: var(--color-black);
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    border-radius: 100%;
-    margin: auto;
-    z-index: 0;
-  }
-
-  @include mq(md) {
-    width: 40px;
-    height: 40px;
-    left: auto;
-    right: 15px;
-    bottom: 20px;
-  }
-}
-
-@keyframes pulse {
-  0% {
-    transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.5);
-    opacity: 0;
-  }
-}
-
-.arrowInner {
-  width: 100%;
-  height: 100%;
-  position: relative;
+  overflow: hidden;
   z-index: 10;
 
-  &::after,
+  @include mq(md) {
+    width: get_vw(300);
+    height: get_vw(160);
+    border: none;
+  }
+
   &::before {
-    content: '';
-    width: 35%;
-    height: 3px;
-    background: var(--color-white);
     position: absolute;
-    right: 0;
-    bottom: 42%;
-    margin: auto;
+    top: -50%;
+    left: -50%;
+    z-index: -2;
+    width: 200%;
+    height: 200%;
+    content: '';
+    background-image: linear-gradient(var(--color-white), var(--color-white)),
+      linear-gradient(var(--color-black), var(--color-black)),
+      linear-gradient(var(--color-white), var(--color-white)),
+      linear-gradient(var(--color-black), var(--color-black));
+    background-repeat: no-repeat;
+    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+    background-size: 50% 50%, 50% 50%;
+    animation: rotate 10s linear infinite;
   }
 
   &::after {
-    transform: rotate(135deg);
-    left: 22%;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    z-index: -1;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    content: '';
+    border-radius: 5px;
+    background: var(--color-black);
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes color-change {
+  0% {
+    color: rgb(247 93 139);
   }
 
-  &::before {
-    transform: rotate(45deg);
-    left: -22%;
+  100% {
+    color: rgb(254 220 64);
   }
 }

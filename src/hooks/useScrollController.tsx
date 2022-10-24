@@ -48,6 +48,7 @@ export const useScrollController = () => {
           progress++; // 進捗を進める
           currentPosition = range * easeOut(progress / 100); // スクロールする位置を計算する
           pageY.current.style.transform = `translateY(-${currentPosition}px)`;
+          main.current.style.transform = `translateY(-${currentPosition}px)`;
 
           if (currentPosition < range) {
             // 現在位置が目的位置より進んでいなければアニメーションを続行させる
@@ -60,6 +61,7 @@ export const useScrollController = () => {
           progress++; // 進捗を進める
           currentPosition = position - position * easeOut(progress / 100); // スクロールする位置を計算する
           pageY.current.style.transform = `translateY(-${currentPosition}px)`;
+          main.current.style.transform = `translateY(-${currentPosition}px)`;
 
           if (currentPosition > range) {
             // 現在位置が目的位置より進んでいなければアニメーションを続行させる
@@ -80,9 +82,8 @@ export const useScrollController = () => {
     // main の高さをあらかじめ計算
     const mainHeight = mainHeightCalculate()!;
     const speed = 50;
-    window.addEventListener('mousewheel', (e) => {
+    window.addEventListener('wheel', (e) => {
       const deltaY = (e as WheelEvent).deltaY;
-
       // スクロールのコントロール
       if (deltaY > 0 && Math.abs(translateYRef.current) < mainHeight) {
         // 下スクロール
@@ -93,10 +94,10 @@ export const useScrollController = () => {
         } else if (isFirstScrollRef.current) {
           translateYRef.current -= speed;
           pageY.current.style.transform = `translateY(${translateYRef.current}px)`;
+          main.current.style.transform = `translateY(${translateYRef.current}px)`;
         }
       } else if (deltaY < 0 && translateYRef.current < 0) {
         // 上スクロール
-
         if (
           Math.abs(translateYRef.current) < header.current.clientHeight &&
           isDownScrollingRef.current
@@ -107,6 +108,7 @@ export const useScrollController = () => {
         } else {
           translateYRef.current += speed;
           pageY.current.style.transform = `translateY(${translateYRef.current}px)`;
+          main.current.style.transform = `translateY(${translateYRef.current}px)`;
         }
       }
     });
@@ -117,6 +119,7 @@ export const useScrollController = () => {
       // リサイズ時はスクロール位置をリセットする
       translateYRef.current = 0;
       pageY.current.style.transform = `translateY(${translateYRef.current}px)`;
+      main.current.style.transform = `translateY(${translateYRef.current}px)`;
     });
   }, [pageY, mainHeightCalculate]);
 

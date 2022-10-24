@@ -1,5 +1,8 @@
 .main {
   width: 100%;
   min-height: 4000px;
-  background: gold;
+  background: var(--color-white);
+  mix-blend-mode: difference;
+  position: relative;
+  z-index: 20;
 }
