@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useRef } from 'react';
 
 import { Log } from '@/libs/log';
+import HeaderStyles from '@/styles/Header.module.scss';
 type firstViewToggle = 'up' | 'down';
 
 /**
  * scrollのコントロールを定義
  */
 export const useScrollController = () => {
+  const header = useRef<HTMLElement>(null!);
+  const rect = useRef<HTMLDivElement>(null!);
   const pageY = useRef<HTMLDivElement>(null!);
   const main = useRef<HTMLElement>(null!);
-  const header = useRef<HTMLElement>(null!);
 
   let isFirstScrollRef = useRef(false); //初回スクロールフラグ
   let isDownScrollingRef = useRef(false); // 下にスクロール済みか
@@ -56,6 +58,9 @@ export const useScrollController = () => {
           } else {
             isFirstScrollRef.current = true;
             translateYRef.current = -header.current.clientHeight;
+
+            // 枠のアニメーション
+            rect.current.classList.add(HeaderStyles.expand);
           }
         } else {
           progress++; // 進捗を進める
@@ -80,7 +85,9 @@ export const useScrollController = () => {
 
   const scroll = useCallback(() => {
     // main の高さをあらかじめ計算
-    const mainHeight = mainHeightCalculate()!;
+    // const mainHeight = mainHeightCalculate()!;
+    const mainHeight = main.current.clientHeight;
+
     const speed = 50;
     window.addEventListener('wheel', (e) => {
       const deltaY = (e as WheelEvent).deltaY;
@@ -105,6 +112,9 @@ export const useScrollController = () => {
           // トップにスクロール
           isDownScrollingRef.current = false;
           scrollAnimation(Math.abs(translateYRef.current), 0, 'up');
+
+          // 枠のアニメーション
+          rect.current.classList.remove(HeaderStyles.expand);
         } else {
           translateYRef.current += speed;
           pageY.current.style.transform = `translateY(${translateYRef.current}px)`;
@@ -112,21 +122,22 @@ export const useScrollController = () => {
         }
       }
     });
-  }, [header, pageY, mainHeightCalculate, scrollAnimation]);
+  }, [header, pageY, scrollAnimation]);
 
   useEffect(() => {
     window.addEventListener('resize', () => {
       // リサイズ時はスクロール位置をリセットする
-      translateYRef.current = 0;
-      pageY.current.style.transform = `translateY(${translateYRef.current}px)`;
-      main.current.style.transform = `translateY(${translateYRef.current}px)`;
+      // translateYRef.current = 0;
+      // pageY.current.style.transform = `translateY(${translateYRef.current}px)`;
+      // main.current.style.transform = `translateY(${translateYRef.current}px)`;
     });
-  }, [pageY, mainHeightCalculate]);
+  }, [pageY]);
 
   return {
     header,
     main,
     pageY,
+    rect,
     scroll,
   };
 };

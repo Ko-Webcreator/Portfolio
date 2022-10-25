@@ -48,6 +48,12 @@
   margin: auto;
   overflow: hidden;
   z-index: 10;
+  transition: 1s;
+
+  &.expand {
+    width: 90%;
+    height: 80%;
+  }
 
   @include mq(md) {
     width: get_vw(300);

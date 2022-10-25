@@ -15,7 +15,7 @@ const AnimateCanvas = dynamic(() => import('@/components/AnimateCanvas'), {
 });
 
 const Home: NextPage = () => {
-  const { header, main, pageY, scroll } = useScrollController();
+  const { header, rect, main, pageY, scroll } = useScrollController();
 
   useEffect(() => {
     scroll();
@@ -40,7 +40,7 @@ const Home: NextPage = () => {
             Portfolio
           </h2>
           <AnimateCanvas />
-          <div className={HeaderStyles.rect} />
+          <div className={HeaderStyles.rect} ref={rect} />
         </header>
         <main className={MainStyles.main} ref={main}></main>
       </div>
