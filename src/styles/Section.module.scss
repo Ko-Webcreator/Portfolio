@@ -1,0 +1,114 @@
+@import './env/index';
+
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.leftFixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  font-size: 25vh;
+  color: var(--color-white);
+  text-indent: -2vh;
+  opacity: 0.1;
+  writing-mode: vertical-rl;
+}
+
+.fukuoka {
+  position: fixed;
+  right: -100vh;
+  bottom: -10vh;
+  margin: auto;
+  z-index: 20;
+  mix-blend-mode: lighten;
+  width: 253vh;
+  height: 119vh;
+  // width: 3200px;
+  // height: 1499px;
+
+  @include mq(md) {
+    right: auto;
+    bottom: 0;
+    width: get_vw(1281);
+    height: get_vw(600);
+    right: get_vw(-600);
+  }
+}
+
+.rect {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  width: 800px;
+  height: 500px;
+  margin: auto;
+  overflow: hidden;
+  z-index: 10;
+  transition: 0.5s;
+
+  &.expand {
+    width: 90%;
+    height: 80%;
+  }
+
+  @include mq(md) {
+    width: get_vw(300);
+    height: get_vw(160);
+    border: none;
+  }
+
+  &::before {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    z-index: 0;
+    width: 200%;
+    height: 200%;
+    content: '';
+    background-image: linear-gradient(var(--color-white), var(--color-white)),
+      linear-gradient(var(--color-black), var(--color-black)),
+      linear-gradient(var(--color-white), var(--color-white)),
+      linear-gradient(var(--color-black), var(--color-black));
+    background-repeat: no-repeat;
+    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+    background-size: 50% 50%, 50% 50%;
+    animation: rotate 10s linear infinite;
+  }
+
+  &::after {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    z-index: 10;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    content: '';
+    border-radius: 5px;
+    background: var(--color-black);
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes color-change {
+  0% {
+    color: rgb(247 93 139);
+  }
+
+  100% {
+    color: rgb(254 220 64);
+  }
+}

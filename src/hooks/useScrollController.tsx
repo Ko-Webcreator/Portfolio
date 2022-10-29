@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 
 import { Log } from '@/libs/log';
-import HeaderStyles from '@/styles/Header.module.scss';
+import SectionStyles from '@/styles/Section.module.scss';
 type firstViewToggle = 'up' | 'down';
 
 /**
@@ -9,8 +9,9 @@ type firstViewToggle = 'up' | 'down';
  */
 export const useScrollController = () => {
   const header = useRef<HTMLElement>(null!);
+  const blocks = useRef<HTMLDivElement>(null!);
+  const section = useRef<HTMLElement>(null!);
   const rect = useRef<HTMLDivElement>(null!);
-  const pageY = useRef<HTMLDivElement>(null!);
   const main = useRef<HTMLElement>(null!);
 
   let isFirstScrollRef = useRef(false); //初回スクロールフラグ
@@ -49,7 +50,8 @@ export const useScrollController = () => {
         if (toggleType == 'down') {
           progress++; // 進捗を進める
           currentPosition = range * easeOut(progress / 100); // スクロールする位置を計算する
-          pageY.current.style.transform = `translateY(-${currentPosition}px)`;
+          header.current.style.transform = `translateY(-${currentPosition}px)`;
+          blocks.current.style.transform = `translateY(-${currentPosition}px)`;
           main.current.style.transform = `translateY(-${currentPosition}px)`;
 
           if (currentPosition < range) {
@@ -57,15 +59,16 @@ export const useScrollController = () => {
             animationID = requestAnimationFrame(move);
           } else {
             isFirstScrollRef.current = true;
-            translateYRef.current = -header.current.clientHeight;
+            translateYRef.current = -section.current.clientHeight;
 
             // 枠のアニメーション
-            rect.current.classList.add(HeaderStyles.expand);
+            rect.current.classList.add(SectionStyles.expand);
           }
         } else {
           progress++; // 進捗を進める
           currentPosition = position - position * easeOut(progress / 100); // スクロールする位置を計算する
-          pageY.current.style.transform = `translateY(-${currentPosition}px)`;
+          header.current.style.transform = `translateY(-${currentPosition}px)`;
+          blocks.current.style.transform = `translateY(-${currentPosition}px)`;
           main.current.style.transform = `translateY(-${currentPosition}px)`;
 
           if (currentPosition > range) {
@@ -80,7 +83,7 @@ export const useScrollController = () => {
 
       move();
     },
-    [isFirstScrollRef, translateYRef, header, pageY],
+    [isFirstScrollRef, translateYRef, header, blocks, section],
   );
 
   const scroll = useCallback(() => {
@@ -97,16 +100,17 @@ export const useScrollController = () => {
         if (!isFirstScrollRef.current && !isDownScrollingRef.current) {
           // 最初のスクロール
           isDownScrollingRef.current = true;
-          scrollAnimation(0, header.current.clientHeight, 'down');
+          scrollAnimation(0, section.current.clientHeight, 'down');
         } else if (isFirstScrollRef.current) {
           translateYRef.current -= speed;
-          pageY.current.style.transform = `translateY(${translateYRef.current}px)`;
+          header.current.style.transform = `translateY(${translateYRef.current}px)`;
+          blocks.current.style.transform = `translateY(${translateYRef.current}px)`;
           main.current.style.transform = `translateY(${translateYRef.current}px)`;
         }
       } else if (deltaY < 0 && translateYRef.current < 0) {
         // 上スクロール
         if (
-          Math.abs(translateYRef.current) < header.current.clientHeight &&
+          Math.abs(translateYRef.current) < section.current.clientHeight &&
           isDownScrollingRef.current
         ) {
           // トップにスクロール
@@ -114,30 +118,33 @@ export const useScrollController = () => {
           scrollAnimation(Math.abs(translateYRef.current), 0, 'up');
 
           // 枠のアニメーション
-          rect.current.classList.remove(HeaderStyles.expand);
+          rect.current.classList.remove(SectionStyles.expand);
         } else {
           translateYRef.current += speed;
-          pageY.current.style.transform = `translateY(${translateYRef.current}px)`;
+          header.current.style.transform = `translateY(${translateYRef.current}px)`;
+          blocks.current.style.transform = `translateY(${translateYRef.current}px)`;
           main.current.style.transform = `translateY(${translateYRef.current}px)`;
         }
       }
     });
-  }, [header, pageY, scrollAnimation]);
+  }, [section, header, blocks, scrollAnimation]);
 
   useEffect(() => {
     window.addEventListener('resize', () => {
       // リサイズ時はスクロール位置をリセットする
       // translateYRef.current = 0;
-      // pageY.current.style.transform = `translateY(${translateYRef.current}px)`;
+      // header.current.style.transform = `translateY(${translateYRef.current}px)`;
+      // blocks.current.style.transform = `translateY(${translateYRef.current}px)`;
       // main.current.style.transform = `translateY(${translateYRef.current}px)`;
     });
-  }, [pageY]);
+  }, [header, blocks]);
 
   return {
+    blocks,
     header,
     main,
-    pageY,
     rect,
     scroll,
+    section,
   };
 };
