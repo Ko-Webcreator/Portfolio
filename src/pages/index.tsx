@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { useEffect } from 'react';
 
 import { PageHead } from '@/components/common/PageHead';
@@ -40,6 +41,9 @@ const Home: NextPage = () => {
             Portfolio
           </h2>
           <AnimateCanvas />
+          <div className={HeaderStyles.fukuoka}>
+            <Image alt="" layout="fill" src="/fukuoka.png" />
+          </div>
           <div className={HeaderStyles.rect} ref={rect} />
         </header>
         <main className={MainStyles.main} ref={main}></main>
