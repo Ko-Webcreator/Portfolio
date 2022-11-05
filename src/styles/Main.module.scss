@@ -1,8 +1,28 @@
-.main {
-  width: 100%;
-  height: 100%;
+@import './env/index';
+.wrap {
+  width: 800px;
+  height: 500px;
   background: var(--color-white);
-  mix-blend-mode: difference;
-  position: relative;
-  z-index: 20;
+  background-size: cover;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  z-index: 100;
+  opacity: 0;
+  transition: 0.5s;
+
+  @include mq(md) {
+    width: get_vw(300);
+    height: get_vw(160);
+  }
+
+  &.expand {
+    opacity: 1;
+    width: calc(90% - 10px);
+    height: calc(80% - 10px);
+    transition: 0;
+  }
 }

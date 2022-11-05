@@ -1,0 +1,17 @@
+.wrap {
+  width: 800px;
+  height: 500px;
+  background: var(--color-black);
+  background-size: cover;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(-50vh - 250px);
+  margin: auto;
+  z-index: 100;
+
+  &.expand {
+    width: calc(90% - 5px);
+    height: calc(80% - 5px);
+  }
+}

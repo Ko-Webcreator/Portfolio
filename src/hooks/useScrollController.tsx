@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef } from 'react';
 
 import { Log } from '@/libs/log';
+import MainStyles from '@/styles/Main.module.scss';
 import SectionStyles from '@/styles/Section.module.scss';
+
 type firstViewToggle = 'up' | 'down';
 
 /**
@@ -11,27 +13,28 @@ export const useScrollController = () => {
   const header = useRef<HTMLElement>(null!);
   const blocks = useRef<HTMLDivElement>(null!);
   const section = useRef<HTMLElement>(null!);
-  const rect = useRef<HTMLDivElement>(null!);
   const main = useRef<HTMLElement>(null!);
+  const rect = useRef<HTMLDivElement>(null!);
+  const secondBlock = useRef<HTMLDivElement>(null!);
 
   let isFirstScrollRef = useRef(false); //初回スクロールフラグ
   let isDownScrollingRef = useRef(false); // 下にスクロール済みか
   let translateYRef = useRef(0); // 初回スクロール位置
 
-  // mainの長さをキリ番で計算する : 例 1234 → 1200
-  const mainHeightCalculate = useCallback(() => {
-    if (!main.current) return;
+  // secondBlockの長さをキリ番で計算する : 例 1234 → 1200
+  const secondBlockHeightCalculate = useCallback(() => {
+    if (!secondBlock.current) return;
 
-    let mainHeight = main.current.clientHeight;
+    let secondHeight = secondBlock.current.clientHeight;
 
-    const mainHeightDigits = mainHeight.toString().length;
-    const divide = Number('1' + '0'.repeat(mainHeightDigits - 2)); // 1234 → 100
-    mainHeight = Number(
-      Math.floor((mainHeight - 50) / divide).toString() + '0'.repeat(mainHeightDigits - 2),
+    const secondHeightDigits = secondHeight.toString().length;
+    const divide = Number('1' + '0'.repeat(secondHeightDigits - 2)); // 1234 → 100
+    secondHeight = Number(
+      Math.floor((secondHeight - 50) / divide).toString() + '0'.repeat(secondHeightDigits - 2),
     );
-    main.current.style.height = mainHeight + 'px';
-    return mainHeight;
-  }, [main]);
+    secondBlock.current.style.height = secondHeight + 'px';
+    return secondHeight;
+  }, [secondBlock]);
 
   const scrollAnimation = useCallback(
     (position: number, range: number, toggleType: firstViewToggle) => {
@@ -52,7 +55,7 @@ export const useScrollController = () => {
           currentPosition = range * easeOut(progress / 100); // スクロールする位置を計算する
           header.current.style.transform = `translateY(-${currentPosition}px)`;
           blocks.current.style.transform = `translateY(-${currentPosition}px)`;
-          main.current.style.transform = `translateY(-${currentPosition}px)`;
+          secondBlock.current.style.transform = `translateY(-${currentPosition}px)`;
 
           if (currentPosition < range) {
             // 現在位置が目的位置より進んでいなければアニメーションを続行させる
@@ -63,13 +66,14 @@ export const useScrollController = () => {
 
             // 枠のアニメーション
             rect.current.classList.add(SectionStyles.expand);
+            main.current.classList.add(MainStyles.expand);
           }
         } else {
           progress++; // 進捗を進める
           currentPosition = position - position * easeOut(progress / 100); // スクロールする位置を計算する
           header.current.style.transform = `translateY(-${currentPosition}px)`;
           blocks.current.style.transform = `translateY(-${currentPosition}px)`;
-          main.current.style.transform = `translateY(-${currentPosition}px)`;
+          secondBlock.current.style.transform = `translateY(-${currentPosition}px)`;
 
           if (currentPosition > range) {
             // 現在位置が目的位置より進んでいなければアニメーションを続行させる
@@ -87,15 +91,14 @@ export const useScrollController = () => {
   );
 
   const scroll = useCallback(() => {
-    // main の高さをあらかじめ計算
-    // const mainHeight = mainHeightCalculate()!;
-    const mainHeight = main.current.clientHeight;
+    // secondBlock の高さをあらかじめ計算
+    const secondBlockHeight = secondBlock.current.clientHeight;
 
     const speed = 50;
     window.addEventListener('wheel', (e) => {
       const deltaY = (e as WheelEvent).deltaY;
       // スクロールのコントロール
-      if (deltaY > 0 && Math.abs(translateYRef.current) < mainHeight) {
+      if (deltaY > 0 && Math.abs(translateYRef.current) < secondBlockHeight) {
         // 下スクロール
         if (!isFirstScrollRef.current && !isDownScrollingRef.current) {
           // 最初のスクロール
@@ -105,7 +108,7 @@ export const useScrollController = () => {
           translateYRef.current -= speed;
           header.current.style.transform = `translateY(${translateYRef.current}px)`;
           blocks.current.style.transform = `translateY(${translateYRef.current}px)`;
-          main.current.style.transform = `translateY(${translateYRef.current}px)`;
+          secondBlock.current.style.transform = `translateY(${translateYRef.current}px)`;
         }
       } else if (deltaY < 0 && translateYRef.current < 0) {
         // 上スクロール
@@ -119,11 +122,12 @@ export const useScrollController = () => {
 
           // 枠のアニメーション
           rect.current.classList.remove(SectionStyles.expand);
+          main.current.classList.remove(MainStyles.expand);
         } else {
           translateYRef.current += speed;
           header.current.style.transform = `translateY(${translateYRef.current}px)`;
           blocks.current.style.transform = `translateY(${translateYRef.current}px)`;
-          main.current.style.transform = `translateY(${translateYRef.current}px)`;
+          secondBlock.current.style.transform = `translateY(${translateYRef.current}px)`;
         }
       }
     });
@@ -135,7 +139,7 @@ export const useScrollController = () => {
       // translateYRef.current = 0;
       // header.current.style.transform = `translateY(${translateYRef.current}px)`;
       // blocks.current.style.transform = `translateY(${translateYRef.current}px)`;
-      // main.current.style.transform = `translateY(${translateYRef.current}px)`;
+      // secondBlock.current.style.transform = `translateY(${translateYRef.current}px)`;
     });
   }, [header, blocks]);
 
@@ -145,6 +149,7 @@ export const useScrollController = () => {
     main,
     rect,
     scroll,
+    secondBlock,
     section,
   };
 };

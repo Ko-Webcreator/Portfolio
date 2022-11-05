@@ -58,6 +58,7 @@
   &.expand {
     width: 90%;
     height: 80%;
+    background: var(--color-white);
   }
 
   @include mq(md) {
