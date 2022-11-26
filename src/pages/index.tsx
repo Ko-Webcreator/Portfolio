@@ -7,7 +7,7 @@ import { useFirstController } from '@/hooks/useFirstController';
 import BlocksStyles from '@/styles/Blocks.module.scss';
 import HeaderStyles from '@/styles/Header.module.scss';
 import MainStyles from '@/styles/Main.module.scss';
-import SectionStyles from '@/styles/Section.module.scss';
+import RectStyles from '@/styles/Rect.module.scss';
 import WholeStyles from '@/styles/Whole.module.scss';
 
 import type { NextPage } from 'next';
@@ -55,14 +55,14 @@ const Home: NextPage = () => {
             <div className={BlocksStyles.arrowInner} />
           </div>
         </div>
-        <section className={SectionStyles.wrap} ref={section}>
-          <h2 className={SectionStyles.leftFixed} data-text="Portfolio">
+        <section className={RectStyles.wrap} ref={section}>
+          <h2 className={RectStyles.leftFixed} data-text="Portfolio">
             Portfolio
           </h2>
-          <div className={SectionStyles.fukuoka}>
+          <div className={RectStyles.fukuoka}>
             <Image alt="" layout="fill" src="/fukuoka.png" />
           </div>
-          <div className={SectionStyles.rect} ref={rect} />
+          <div className={RectStyles.rect} ref={rect} />
         </section>
         <div className={BlocksStyles.secondBlocks} ref={secondBlock} />
         <main className={MainStyles.wrap} ref={main}></main>

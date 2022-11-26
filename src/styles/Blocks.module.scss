@@ -40,7 +40,7 @@
     height: 110%;
     background: var(--color-white);
     border-radius: 50%;
-    animation: pulse 2s ease-out infinite;
+    animation: pulseKey 2s ease-out infinite;
     transform: translateX(-50%) translateY(-50%);
   }
 
@@ -66,7 +66,7 @@
   }
 }
 
-@keyframes pulse {
+@keyframes pulseKey {
   0% {
     transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
     opacity: 1;
@@ -103,16 +103,6 @@
   &::before {
     transform: rotate(45deg);
     left: -22%;
-  }
-}
-
-@keyframes fill-color-change {
-  0% {
-    fill: rgb(247 93 139);
-  }
-
-  100% {
-    fill: rgb(254 220 64);
   }
 }
 

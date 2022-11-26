@@ -1,8 +1,8 @@
 import { MutableRefObject, useCallback, useEffect, useRef } from 'react';
 
-import MainStyles from '@/styles/Main.module.scss';
-import SectionStyles from '@/styles/Section.module.scss';
 import { FirstViewToggle } from '@/types/FirstViewToggle';
+
+import { useTransformController } from './useTransformController';
 
 export const useFirstController = () => {
   const header = useRef<HTMLElement>(null!);
@@ -16,6 +16,13 @@ export const useFirstController = () => {
   const translateYRef = useRef(0); // 初回スクロール位置
   const secondBlockHeightRef = useRef(0);
   const speed = 50;
+
+  const {
+    onMainExpandedTransform,
+    onMainShrinkTransform,
+    onRectExpandedTransform,
+    onRectShrinkTransform,
+  } = useTransformController();
 
   useEffect(() => {
     secondBlockHeightRef.current = secondBlock.current.clientHeight;
@@ -68,8 +75,8 @@ export const useFirstController = () => {
             translateYRef.current = -section.current.clientHeight;
 
             // 枠のアニメーション
-            rect.current.classList.add(SectionStyles.expand);
-            main.current.classList.add(MainStyles.expand);
+            onMainExpandedTransform(main);
+            onRectExpandedTransform(rect);
           }
         } else {
           progress++; // 進捗を進める
@@ -90,7 +97,15 @@ export const useFirstController = () => {
 
       move();
     },
-    [isFirstScrollRef, translateYRef, header, blocks, section],
+    [
+      onMainExpandedTransform,
+      onRectExpandedTransform,
+      isFirstScrollRef,
+      translateYRef,
+      header,
+      blocks,
+      section,
+    ],
   );
 
   const onFirstController = useCallback(
@@ -119,8 +134,8 @@ export const useFirstController = () => {
           onScrollAnimation(main, Math.abs(translateYRef.current), 0, 'up');
 
           // 枠のアニメーション
-          rect.current.classList.remove(SectionStyles.expand);
-          main.current.classList.remove(MainStyles.expand);
+          onMainShrinkTransform(main);
+          onRectShrinkTransform(rect);
         } else {
           translateYRef.current += speed;
           header.current.style.transform = `translateY(${translateYRef.current}px)`;
@@ -129,7 +144,7 @@ export const useFirstController = () => {
         }
       }
     },
-    [onScrollAnimation],
+    [onMainShrinkTransform, onRectShrinkTransform, onScrollAnimation],
   );
 
   /*

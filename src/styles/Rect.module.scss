@@ -29,8 +29,6 @@
   mix-blend-mode: lighten;
   width: 253vh;
   height: 119vh;
-  // width: 3200px;
-  // height: 1499px;
 
   @include mq(md) {
     right: auto;
@@ -56,15 +54,23 @@
   transition: 0.5s;
 
   &.expand {
-    width: 90%;
-    height: 80%;
-    background: var(--color-white);
+    animation: 0.5s expandKey;
+    animation-fill-mode: forwards;
+  }
+
+  &.shrink {
+    animation: 0.5s shrinkKey;
+    animation-fill-mode: forwards;
   }
 
   @include mq(md) {
     width: get_vw(300);
     height: get_vw(160);
-    border: none;
+
+    &.shrink {
+      animation: 0.5s shrinkSPKey;
+      animation-fill-mode: forwards;
+    }
   }
 
   &::before {
@@ -82,7 +88,7 @@
     background-repeat: no-repeat;
     background-position: 0 0, 100% 0, 100% 100%, 0 100%;
     background-size: 50% 50%, 50% 50%;
-    animation: rotate 10s linear infinite;
+    animation: rotateKey 10s linear infinite;
   }
 
   &::after {
@@ -98,18 +104,41 @@
   }
 }
 
-@keyframes rotate {
+@keyframes rotateKey {
   100% {
     transform: rotate(1turn);
   }
 }
 
-@keyframes color-change {
+@keyframes shrinkKey {
   0% {
-    color: rgb(247 93 139);
+    width: calc(90% - 10px);
+    height: calc(80% - 10px);
   }
-
   100% {
-    color: rgb(254 220 64);
+    width: 800px;
+    height: 500px;
+  }
+}
+
+@keyframes shrinkSPKey {
+  0% {
+    width: calc(90% - 10px);
+    height: calc(80% - 10px);
+  }
+  100% {
+    width: get_vw(300);
+    height: get_vw(160);
+  }
+}
+
+@keyframes expandKey {
+  50% {
+    width: 10%;
+    height: 10%;
+  }
+  100% {
+    width: calc(90% - 10px);
+    height: calc(80% - 10px);
   }
 }
