@@ -1,9 +1,9 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { PageHead } from '@/components/common/PageHead';
-import { useScrollController } from '@/hooks/useScrollController';
+import { useFirstController } from '@/hooks/useFirstController';
 import BlocksStyles from '@/styles/Blocks.module.scss';
 import HeaderStyles from '@/styles/Header.module.scss';
 import MainStyles from '@/styles/Main.module.scss';
@@ -17,11 +17,26 @@ const AnimateCanvas = dynamic(() => import('@/components/AnimateCanvas'), {
 });
 
 const Home: NextPage = () => {
-  const { header, blocks, secondBlock, section, rect, main, scroll } = useScrollController();
+  const main = useRef<HTMLElement>(null!);
+  const prevSpPageYRef = useRef(0);
+
+  const { header, blocks, onFirstController, secondBlock, section, rect } = useFirstController();
 
   useEffect(() => {
-    scroll();
-  }, [scroll]);
+    window.addEventListener('wheel', (e) => {
+      const deltaY = e.deltaY;
+      onFirstController(deltaY, main);
+    });
+    window.addEventListener('touchmove', (e) => {
+      const screenY = e.targetTouches[0].screenY;
+      if (prevSpPageYRef.current < screenY) {
+        onFirstController(1, main);
+      } else if (prevSpPageYRef.current > screenY) {
+        onFirstController(-1, main);
+      }
+      prevSpPageYRef.current = screenY;
+    });
+  }, [prevSpPageYRef, onFirstController]);
 
   return (
     <div className={`${WholeStyles.wrap}`}>
