@@ -33,27 +33,27 @@ const AnimateCanvas = () => {
       canvas.width = displayWidth;
       canvas.height = displayHeight;
 
-      const source = [{ name: 'me', src: 'me.png' }];
-      const images: { name: string; obj: HTMLImageElement }[] = [];
-      source.forEach((_, i) => {
-        images[i] = {
-          name: source[i].name,
-          obj: new Image(),
-        };
-        images[i].obj.src = source[i].src;
-      });
+      // const source = [{ name: 'me', src: 'me.png' }];
+      // const images: { name: string; obj: HTMLImageElement }[] = [];
+      // source.forEach((_, i) => {
+      //   images[i] = {
+      //     name: source[i].name,
+      //     obj: new Image(),
+      //   };
+      //   images[i].obj.src = source[i].src;
+      // });
 
-      images.forEach((e, i) => {
-        e.obj.addEventListener(
-          'load',
-          () => {
-            if (i === source.length - 1) {
-              loaded();
-            }
-          },
-          false,
-        );
-      });
+      // images.forEach((e, i) => {
+      //   e.obj.addEventListener(
+      //     'load',
+      //     () => {
+      //       if (i === source.length - 1) {
+      //         loaded();
+      //       }
+      //     },
+      //     false,
+      //   );
+      // });
 
       const loaded = () => {
         /*
@@ -64,40 +64,40 @@ const AnimateCanvas = () => {
             ctx から 色と位置を保存する
          **/
         // 人のコピー
-        const nameImg = images.find((e) => (e.name = 'me'))!;
-        const imageWidth = 700;
-        const imageHeight = imageWidth * 1.11; // 比率
-        const imageX = displayWidth - imageWidth;
-        const imageY = displayHeight - imageHeight;
-        ctx.drawImage(nameImg.obj, imageX, imageY, imageWidth, imageHeight);
+        // const nameImg = images.find((e) => (e.name = 'me'))!;
+        // const imageWidth = 700;
+        // const imageHeight = imageWidth * 1.11; // 比率
+        // const imageX = displayWidth - imageWidth;
+        // const imageY = displayHeight - imageHeight;
+        // ctx.drawImage(nameImg.obj, imageX, imageY, imageWidth, imageHeight);
 
-        const personData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const personDotColorPositions: DotColorPosition[] = [];
+        // const personData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        // const personDotColorPositions: DotColorPosition[] = [];
 
-        for (var i = personData.data.length; i >= 0; i -= 4) {
-          const red = personData.data[i];
-          const green = personData.data[i + 1];
-          const blue = personData.data[i + 2];
-          const alpha = personData.data[i + 3] / 255;
+        // for (var i = personData.data.length; i >= 0; i -= 4) {
+        //   const red = personData.data[i];
+        //   const green = personData.data[i + 1];
+        //   const blue = personData.data[i + 2];
+        //   const alpha = personData.data[i + 3] / 255;
 
-          if (red === 0 && green === 0 && blue === 0) continue; //何も色がない所は表示しない
+        //   if (red === 0 && green === 0 && blue === 0) continue; //何も色がない所は表示しない
 
-          const x = (i / 4) % personData.width;
-          const y = Math.floor(i / 4 / personData.width);
-          const defaultDotColorPosition: DotColorPosition = {
-            alpha,
-            blue,
-            green,
-            red,
-            x,
-            y,
-          };
+        //   const x = (i / 4) % personData.width;
+        //   const y = Math.floor(i / 4 / personData.width);
+        //   const defaultDotColorPosition: DotColorPosition = {
+        //     alpha,
+        //     blue,
+        //     green,
+        //     red,
+        //     x,
+        //     y,
+        //   };
 
-          personDotColorPositions.push(defaultDotColorPosition);
-        }
+        //   personDotColorPositions.push(defaultDotColorPosition);
+        // }
 
-        // 画像をクリア
-        ctx.clearRect(0, 0, displayWidth, displayHeight);
+        // // 画像をクリア
+        // ctx.clearRect(0, 0, displayWidth, displayHeight);
 
         // 文字のコピー
         let fontSize = 120;

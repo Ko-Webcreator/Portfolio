@@ -65,7 +65,17 @@ const Home: NextPage = () => {
           <div className={RectStyles.rect} ref={rect} />
         </section>
         <div className={BlocksStyles.secondBlocks} ref={secondBlock} />
-        <main className={MainStyles.wrap} ref={main}></main>
+        <main className={MainStyles.wrap} ref={main}>
+          <section className={MainStyles.section}>
+            <figure>
+              <a href="https://mercan.mercari.com/" target="_blkank" />
+              <iframe scrolling="no" src="https://mercan.mercari.com/" />
+
+              <Image alt="" layout="fill" src="/mac.png" />
+            </figure>
+            <article></article>
+          </section>
+        </main>
       </div>
     </div>
   );
