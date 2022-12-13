@@ -73,7 +73,25 @@ const Home: NextPage = () => {
 
               <Image alt="" layout="fill" src="/mac.png" />
             </figure>
-            <article></article>
+            <article id="first_article">
+              <h2>オウンドメディア制作</h2>
+              <p>
+                <b>使用技術 :</b>
+                <span data-slot="NuxtJS, WordPress, GraphQL" />
+              </p>
+              <p>
+                <b>製作期間 / 人数 :</b>
+                <span data-slot="約4ヶ月 / 1人" />
+              </p>
+              <p>
+                <b>説明 :</b>
+                <span
+                  data-slot="WordPress を Headless にして GraphQL にて API
+                を作成しました、ページ生成は NuxtJS の static generate 機能を使用して
+                表示しています。"
+                />
+              </p>
+            </article>
           </section>
         </main>
       </div>

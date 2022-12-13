@@ -62,12 +62,14 @@
   align-items: center;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
 
   @include mq(md) {
     justify-content: center;
     flex-direction: column;
     padding: get_vw(10);
-    box-sizing: border-box;
   }
 
   figure {
@@ -111,13 +113,58 @@
   article {
     width: calc(100% - 50vh);
     height: 100%;
-    background: black;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    line-height: 1.6;
+    padding-left: 30px;
+    box-sizing: border-box;
+
+    span {
+      margin-left: 10px;
+    }
+
+    h2 {
+      font-size: 30px;
+    }
+
+    p {
+      font-size: 16px;
+      margin-top: 15px;
+
+      &:first-of-type {
+        margin-top: 30px;
+      }
+    }
 
     @include mq(md) {
       width: 80vw;
-      height: 50vw;
+      height: auto;
       overflow-y: scroll;
       margin-top: get_vw(20);
+      padding-left: 0;
+      display: block;
+
+      span {
+        margin-left: 0;
+      }
+
+      h2 {
+        font-size: get_vw(24);
+      }
+
+      p {
+        font-size: get_vw(12);
+        margin-top: get_vw(10);
+
+        &:first-of-type {
+          margin-top: get_vw(15);
+        }
+      }
+
+      b {
+        display: block;
+      }
     }
   }
 }

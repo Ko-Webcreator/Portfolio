@@ -1,5 +1,6 @@
 import { MutableRefObject, useCallback, useEffect, useRef } from 'react';
 
+import { slotStart } from '@/libs/slot';
 import { FirstViewToggle } from '@/types/FirstViewToggle';
 
 import { useTransformController } from './useTransformController';
@@ -117,6 +118,9 @@ export const useFirstController = () => {
           // 最初のスクロール
           isDownScrollingRef.current = true;
           onScrollAnimation(main, 0, section.current.clientHeight, 'down');
+          setTimeout(() => {
+            slotStart('first_article');
+          }, 500);
         } else if (isFirstScrollRef.current) {
           translateYRef.current -= speed;
           header.current.style.transform = `translateY(${translateYRef.current}px)`;
