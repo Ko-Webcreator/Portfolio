@@ -58,6 +58,11 @@
     animation-fill-mode: forwards;
   }
 
+  &.firstShrink {
+    animation: 0.5s firstShrinkKey;
+    animation-fill-mode: forwards;
+  }
+
   &.shrink {
     animation: 0.5s shrinkKey;
     animation-fill-mode: forwards;
@@ -66,6 +71,11 @@
   @include mq(md) {
     width: get_vw(300);
     height: get_vw(160);
+
+    &.firstShrink {
+      animation: 0.5s firstShrinkSPKey;
+      animation-fill-mode: forwards;
+    }
 
     &.shrink {
       animation: 0.5s shrinkSPKey;
@@ -110,34 +120,56 @@
   }
 }
 
-@keyframes shrinkKey {
-  0% {
+@keyframes firstShrinkKey {
+  from {
     width: calc(90% - 10px);
     height: calc(80% - 10px);
   }
-  100% {
+  to {
     width: 800px;
     height: 500px;
   }
 }
 
-@keyframes shrinkSPKey {
-  0% {
+@keyframes firstShrinkSPKey {
+  from {
     width: calc(90% - 10px);
     height: calc(80% - 10px);
   }
-  100% {
+  to {
     width: get_vw(300);
     height: get_vw(160);
   }
 }
 
-@keyframes expandKey {
-  30% {
-    width: 5%;
-    height: 5%;
+@keyframes shrinkKey {
+  from {
+    width: calc(90% - 10px);
+    height: calc(80% - 10px);
   }
-  100% {
+  to {
+    width: 1%;
+    height: 1%;
+  }
+}
+
+@keyframes shrinkSPKey {
+  from {
+    width: calc(90% - 10px);
+    height: calc(80% - 10px);
+  }
+  to {
+    width: 1%;
+    height: 1%;
+  }
+}
+
+@keyframes expandKey {
+  from {
+    width: 1%;
+    height: 1%;
+  }
+  to {
     width: calc(90% - 10px);
     height: calc(80% - 10px);
   }

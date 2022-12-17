@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 
 import { PageHead } from '@/components/common/PageHead';
-import { useFirstController } from '@/hooks/useFirstController';
+import { useScrollController } from '@/hooks/useScrollController';
 import BlocksStyles from '@/styles/Blocks.module.scss';
 import HeaderStyles from '@/styles/Header.module.scss';
 import MainStyles from '@/styles/Main.module.scss';
@@ -17,24 +17,35 @@ const AnimateCanvas = dynamic(() => import('@/components/AnimateCanvas'), {
 });
 
 const Home: NextPage = () => {
-  const main = useRef<HTMLElement>(null!);
   const prevSpPageYRef = useRef(0);
 
-  const { header, blocks, onFirstController, secondBlock, section, rect } = useFirstController();
+  const {
+    blocks,
+    firstSectionRef,
+    header,
+    main,
+    onFirstController,
+    rect,
+    secondBlock,
+    secondSectionRef,
+    section,
+  } = useScrollController();
 
   useEffect(() => {
     window.addEventListener('wheel', (e) => {
       const deltaY = e.deltaY;
-      onFirstController(deltaY, main);
+      onFirstController(deltaY);
     });
-    window.addEventListener('touchmove', (e) => {
-      const screenY = e.targetTouches[0].screenY;
-      if (prevSpPageYRef.current < screenY) {
-        onFirstController(1, main);
-      } else if (prevSpPageYRef.current > screenY) {
-        onFirstController(-1, main);
+    window.addEventListener('touchstart', (e) => {
+      prevSpPageYRef.current = e.targetTouches[0].clientY;
+    });
+    window.addEventListener('touchend', (e) => {
+      const clientY = e.changedTouches[0].clientY;
+      if (prevSpPageYRef.current < clientY) {
+        onFirstController(-1);
+      } else if (prevSpPageYRef.current > clientY) {
+        onFirstController(1);
       }
-      prevSpPageYRef.current = screenY;
     });
   }, [prevSpPageYRef, onFirstController]);
 
@@ -66,15 +77,15 @@ const Home: NextPage = () => {
         </section>
         <div className={BlocksStyles.secondBlocks} ref={secondBlock} />
         <main className={MainStyles.wrap} ref={main}>
-          <section className={MainStyles.section}>
+          <section className={MainStyles.section} ref={firstSectionRef}>
             <figure>
               <a href="https://mercan.mercari.com/" target="_blkank" />
-              <iframe scrolling="no" src="https://mercan.mercari.com/" />
+              <iframe src="https://mercan.mercari.com/" />
 
               <Image alt="" layout="fill" src="/mac.png" />
             </figure>
             <article id="first_article">
-              <h2>オウンドメディア制作</h2>
+              <h2>オウンドメディア</h2>
               <p>
                 <b>使用技術 :</b>
                 <span data-slot="NuxtJS, WordPress, GraphQL" />
@@ -90,6 +101,29 @@ const Home: NextPage = () => {
                 を作成しました、ページ生成は NuxtJS の static generate 機能を使用して
                 表示しています。"
                 />
+              </p>
+            </article>
+          </section>
+          <section className={MainStyles.section} ref={secondSectionRef}>
+            <figure>
+              <a href="https://yomcoma.com/user/" target="_blkank" />
+              <iframe src="https://yomcoma.com/user/" />
+
+              <Image alt="" layout="fill" src="/mac.png" />
+            </figure>
+            <article id="second_article">
+              <h2>YOMcoma アプリ開発</h2>
+              <p>
+                <b>使用技術 :</b>
+                <span data-slot="Flutter" />
+              </p>
+              <p>
+                <b>開発期間 / 人数 :</b>
+                <span data-slot="約6ヶ月 / 1人" />
+              </p>
+              <p>
+                <b>説明 :</b>
+                <span data-slot="プライベートで Flutter の開発を行ってた所、開発にアサインされました。フロントの設計から実装までを担当しました。" />
               </p>
             </article>
           </section>

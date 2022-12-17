@@ -14,6 +14,7 @@
   z-index: 100;
   opacity: 0;
   transition: 1s;
+  overflow: hidden;
 
   &.expand {
     animation: 1s expandKey;
@@ -32,25 +33,23 @@
 }
 
 @keyframes shrinkKey {
-  0% {
+  from {
     opacity: 1;
     width: calc(90% - 20px);
     height: calc(80% - 20px);
   }
-  100% {
+  to {
     opacity: 0;
   }
 }
 
 @keyframes expandKey {
-  0% {
+  from {
     opacity: 0;
+    width: 1%;
+    height: 1%;
   }
-  30% {
-    width: 5%;
-    height: 5%;
-  }
-  100% {
+  to {
     opacity: 1;
     width: calc(90% - 20px);
     height: calc(80% - 20px);
@@ -60,11 +59,19 @@
 .section {
   display: flex;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  justify-content: center;
+  width: 0;
+  height: 0;
   overflow: hidden;
   padding: 20px;
   box-sizing: border-box;
+  opacity: 0;
+
+  &.expand {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+  }
 
   @include mq(md) {
     justify-content: center;
@@ -73,13 +80,13 @@
   }
 
   figure {
-    width: 50vh;
-    height: 27vh;
+    width: 600px;
+    height: 324px;
     position: relative;
 
     @include mq(md) {
-      width: 80vw;
-      height: 43vw;
+      width: get_vw(300);
+      height: get_vw(161);
     }
 
     iframe,
@@ -90,7 +97,12 @@
       left: 17%;
       top: 1%;
       border-radius: 5px;
-      overflow: hidden;
+    }
+
+    iframe {
+      body {
+        overflow: hidden;
+      }
     }
 
     a {
@@ -103,7 +115,7 @@
     }
 
     img {
-      width: 100%;
+      min-width: 100%;
       height: 100%;
       z-index: 20;
       pointer-events: none;
@@ -111,7 +123,7 @@
   }
 
   article {
-    width: calc(100% - 50vh);
+    width: 800px;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -122,6 +134,10 @@
 
     span {
       margin-left: 10px;
+
+      &.hide {
+        display: none;
+      }
     }
 
     h2 {
@@ -138,11 +154,12 @@
     }
 
     @include mq(md) {
-      width: 80vw;
+      width: 100%;
       height: auto;
+      max-height: calc(100% - get_vw(161));
       overflow-y: scroll;
       margin-top: get_vw(20);
-      padding-left: 0;
+      padding: 0 0 get_vw(20);
       display: block;
 
       span {

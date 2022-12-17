@@ -8,13 +8,13 @@ export const slotStart = (id: string) => {
 
     // 文字数に応じて time を変更する
     if (str.length <= 50 && str.length > 10) {
-      time = 200;
+      time = 20;
     }
     if (str.length <= 100 && str.length > 50) {
-      time = 50;
+      time = 10;
     }
     if (str.length > 100) {
-      time = 25;
+      time = 5;
     }
 
     slotAnimation(element, str, time);
