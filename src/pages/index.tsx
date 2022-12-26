@@ -29,6 +29,7 @@ const Home: NextPage = () => {
     secondBlock,
     secondSectionRef,
     section,
+    thirdSectionRef,
   } = useScrollController();
 
   useEffect(() => {
@@ -79,7 +80,7 @@ const Home: NextPage = () => {
         <main className={MainStyles.wrap} ref={main}>
           <section className={MainStyles.section} ref={firstSectionRef}>
             <figure>
-              <a href="https://mercan.mercari.com/" target="_blkank" />
+              <a href="https://mercan.mercari.com/" rel="noreferrer" target="_blank" />
               <iframe src="https://mercan.mercari.com/" />
 
               <Image alt="" layout="fill" src="/mac.png" />
@@ -106,7 +107,7 @@ const Home: NextPage = () => {
           </section>
           <section className={MainStyles.section} ref={secondSectionRef}>
             <figure>
-              <a href="https://yomcoma.com/user/" target="_blkank" />
+              <a href="https://yomcoma.com/user/" rel="noreferrer" target="_blank" />
               <iframe src="https://yomcoma.com/user/" />
 
               <Image alt="" layout="fill" src="/mac.png" />
@@ -115,15 +116,38 @@ const Home: NextPage = () => {
               <h2>YOMcoma アプリ開発</h2>
               <p>
                 <b>使用技術 :</b>
-                <span data-slot="Flutter" />
+                <span data-slot="Flutter, Firebase(認証周り)" />
               </p>
               <p>
                 <b>開発期間 / 人数 :</b>
-                <span data-slot="約6ヶ月 / 1人" />
+                <span data-slot="約8ヶ月 / 3人" />
               </p>
               <p>
                 <b>説明 :</b>
-                <span data-slot="プライベートで Flutter の開発を行ってた所、開発にアサインされました。フロントの設計から実装までを担当しました。" />
+                <span data-slot="プライベートで Flutter での開発を行ってた所、アプリ開発にアサインされました。フロントの設計から実装までを担当しました。" />
+              </p>
+            </article>
+          </section>
+          <section className={MainStyles.section} ref={thirdSectionRef}>
+            <figure>
+              <a href="https://yomcoma.com/writer/" rel="noreferrer" target="_blank" />
+              <iframe src="https://yomcoma.com/writer/" />
+
+              <Image alt="" layout="fill" src="/mac.png" />
+            </figure>
+            <article id="third_article">
+              <h2>YOMcoma Web開発</h2>
+              <p>
+                <b>使用技術 :</b>
+                <span data-slot="NextJS, Firebase(認証周り), NestJS, MySQL, GCP" />
+              </p>
+              <p>
+                <b>開発期間 / 人数 :</b>
+                <span data-slot="約8ヶ月 / 3人" />
+              </p>
+              <p>
+                <b>説明 :</b>
+                <span data-slot="アプリ開発後は管理画面の開発を任さられました。フロントは NextJS を使用して開発してます。またバックエンドの実装も一部任さられました。バックエンドは NestJS と MySQL でインフラ周りは GCP を使用しています。" />
               </p>
             </article>
           </section>

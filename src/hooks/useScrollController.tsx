@@ -19,6 +19,7 @@ export const useScrollController = () => {
   const isAnimatingRef = useRef<boolean>(false);
   const firstSectionRef = useRef<HTMLElement>(null!);
   const secondSectionRef = useRef<HTMLElement>(null!);
+  const thirdSectionRef = useRef<HTMLElement>(null!);
 
   const {
     onMainExpandedTransform,
@@ -112,6 +113,17 @@ export const useScrollController = () => {
           await sleep(time500);
           slotStart('second_article');
           pageIndex.current += 1;
+        } else if (pageIndex.current === 2) {
+          onMainShrinkTransform(main, secondSectionRef.current);
+          onRectShrinkTransform(rect);
+
+          await sleep(time1000);
+          onMainExpandedTransform(main, thirdSectionRef.current);
+          onRectExpandedTransform(rect);
+
+          await sleep(time500);
+          slotStart('third_article');
+          pageIndex.current += 1;
         }
       } else if (deltaY < 0 && currentYRef.current > 0) {
         // 上スクロール
@@ -134,6 +146,17 @@ export const useScrollController = () => {
 
           await sleep(time500);
           slotStart('first_article');
+          pageIndex.current -= 1;
+        } else if (pageIndex.current === 3) {
+          onMainShrinkTransform(main, thirdSectionRef.current);
+          onRectShrinkTransform(rect);
+
+          await sleep(time1000);
+          onMainExpandedTransform(main, secondSectionRef.current);
+          onRectExpandedTransform(rect);
+
+          await sleep(time500);
+          slotStart('second_article');
           pageIndex.current -= 1;
         }
       }
@@ -176,5 +199,6 @@ export const useScrollController = () => {
     secondBlock,
     secondSectionRef,
     section,
+    thirdSectionRef,
   };
 };
