@@ -22,6 +22,7 @@ const Home: NextPage = () => {
   const {
     blocks,
     firstSectionRef,
+    fourSectionRef,
     header,
     main,
     onFirstController,
@@ -150,6 +151,12 @@ const Home: NextPage = () => {
                 <span data-slot="アプリ開発後は管理画面の開発を任さられました。フロントは NextJS を使用して開発してます。またバックエンドの実装も一部任さられました。バックエンドは NestJS と MySQL でインフラ周りは GCP を使用しています。" />
               </p>
             </article>
+          </section>
+          <section className={MainStyles.profile} ref={fourSectionRef}>
+            <div className={MainStyles.icon}>
+              <Image alt="" layout="fill" objectFit="cover" src="/pic.png" />
+            </div>
+            <div className={MainStyles.pin} />
           </section>
         </main>
       </div>

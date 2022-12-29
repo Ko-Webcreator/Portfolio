@@ -53,6 +53,23 @@
   z-index: 10;
   transition: 0.5s;
 
+  &.profile {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    border: 5px dotted var(--color-white);
+    animation: 1s rotation infinite;
+    bottom: 520px;
+    z-index: 200;
+    mix-blend-mode: difference;
+
+    @include mq(md) {
+      width: get_vw(100);
+      height: get_vw(100);
+      bottom: get_vw(400);
+    }
+  }
+
   &.expand {
     animation: 1s expandKey;
     animation-fill-mode: forwards;
@@ -78,7 +95,7 @@
     }
 
     &.shrink {
-      animation: 0.5s shrinkSPKey;
+      animation: 0.5s shrinkKey;
       animation-fill-mode: forwards;
     }
   }
@@ -144,23 +161,11 @@
 
 @keyframes shrinkKey {
   from {
-    width: calc(90% - 10px);
-    height: calc(80% - 10px);
+    opacity: 0;
   }
   to {
-    width: 1%;
-    height: 1%;
-  }
-}
-
-@keyframes shrinkSPKey {
-  from {
-    width: calc(90% - 10px);
-    height: calc(80% - 10px);
-  }
-  to {
-    width: 1%;
-    height: 1%;
+    width: 1px;
+    height: 1px;
   }
 }
 
@@ -172,5 +177,14 @@
   to {
     width: calc(90% - 10px);
     height: calc(80% - 10px);
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

@@ -1,10 +1,11 @@
 import { MutableRefObject, useCallback } from 'react';
 
+import { sleep } from '@/libs/await/sleep';
 import MainStyles from '@/styles/Main.module.scss';
 import RectStyles from '@/styles/Rect.module.scss';
 
 export const useTransformController = () => {
-  const onMainExpandedTransform = useCallback(
+  const onMainExpandTransform = useCallback(
     (main: MutableRefObject<HTMLElement>, section: HTMLElement) => {
       main.current.classList.add(MainStyles.expand);
       section.classList.add(MainStyles.expand);
@@ -20,7 +21,28 @@ export const useTransformController = () => {
     [],
   );
 
-  const onRectExpandedTransform = useCallback((rect: MutableRefObject<HTMLElement>) => {
+  const onMainProfileTransform = useCallback(
+    async (main: MutableRefObject<HTMLElement>, section: HTMLElement) => {
+      main.current.classList.add(MainStyles.profile);
+      section.classList.add(MainStyles.profile);
+
+      await sleep(1000);
+
+      section.classList.add(MainStyles.expand);
+    },
+    [],
+  );
+
+  const onMainRemoveProfileTransform = useCallback(
+    async (main: MutableRefObject<HTMLElement>, section: HTMLElement) => {
+      main.current.classList.remove(MainStyles.profile);
+      section.classList.remove(MainStyles.profile);
+      section.classList.remove(MainStyles.expand);
+    },
+    [],
+  );
+
+  const onRectExpandTransform = useCallback((rect: MutableRefObject<HTMLElement>) => {
     rect.current.classList.remove(RectStyles.shrink);
     rect.current.classList.add(RectStyles.expand);
   }, []);
@@ -39,11 +61,41 @@ export const useTransformController = () => {
     rect.current.classList.remove(RectStyles.expand);
   }, []);
 
+  const onRectProfileTransform = useCallback((rect: MutableRefObject<HTMLElement>) => {
+    rect.current.classList.add(RectStyles.profile);
+    rect.current.classList.remove(RectStyles.shrink);
+  }, []);
+
+  const onRectRemoveProfileTransform = useCallback((rect: MutableRefObject<HTMLElement>) => {
+    rect.current.classList.add(RectStyles.shrink);
+    rect.current.classList.remove(RectStyles.profile);
+  }, []);
+
+  const onRectLastTransform = useCallback((rect: MutableRefObject<HTMLElement>) => {
+    rect.current.style.bottom = '0';
+    rect.current.style.width = '0';
+    rect.current.style.height = '0';
+    rect.current.style.opacity = '0';
+  }, []);
+
+  const onRectRemoveLastTransform = useCallback((rect: MutableRefObject<HTMLElement>) => {
+    rect.current.style.bottom = '';
+    rect.current.style.width = '';
+    rect.current.style.height = '';
+    rect.current.style.opacity = '';
+  }, []);
+
   return {
-    onMainExpandedTransform,
+    onMainExpandTransform,
+    onMainProfileTransform,
+    onMainRemoveProfileTransform,
     onMainShrinkTransform,
-    onRectExpandedTransform,
+    onRectExpandTransform,
     onRectFirstShrinkTransform,
+    onRectLastTransform,
+    onRectProfileTransform,
+    onRectRemoveLastTransform,
+    onRectRemoveProfileTransform,
     onRectRemoveShrinkTransform,
     onRectShrinkTransform,
   };
