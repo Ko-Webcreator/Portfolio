@@ -1,9 +1,13 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+import Particles from 'react-particles';
+import { loadFull } from 'tsparticles';
+import { Engine } from 'tsparticles-engine';
 
 import { PageHead } from '@/components/common/PageHead';
 import { useScrollController } from '@/hooks/useScrollController';
+import { config } from '@/libs/particles';
 import BlocksStyles from '@/styles/Blocks.module.scss';
 import HeaderStyles from '@/styles/Header.module.scss';
 import MainStyles from '@/styles/Main.module.scss';
@@ -11,7 +15,6 @@ import RectStyles from '@/styles/Rect.module.scss';
 import WholeStyles from '@/styles/Whole.module.scss';
 
 import type { NextPage } from 'next';
-
 const AnimateCanvas = dynamic(() => import('@/components/AnimateCanvas'), {
   ssr: false,
 });
@@ -51,6 +54,10 @@ const Home: NextPage = () => {
     });
   }, [prevSpPageYRef, onFirstController]);
 
+  const particlesInit = useCallback(async (engine: Engine) => {
+    await loadFull(engine);
+  }, []);
+
   return (
     <div className={`${WholeStyles.wrap}`}>
       <div className={WholeStyles.childWrap}>
@@ -72,6 +79,12 @@ const Home: NextPage = () => {
           <h2 className={RectStyles.leftFixed} data-text="Portfolio">
             Portfolio
           </h2>
+          <Particles
+            className={BlocksStyles.particles}
+            id="tsparticles"
+            init={particlesInit}
+            options={config}
+          />
           <div className={RectStyles.fukuoka}>
             <Image alt="" layout="fill" src="/fukuoka.png" />
           </div>
