@@ -41,9 +41,11 @@ const Home: NextPage = () => {
       const deltaY = e.deltaY;
       onFirstController(deltaY);
     });
+
     window.addEventListener('touchstart', (e) => {
       prevSpPageYRef.current = e.targetTouches[0].clientY;
     });
+
     window.addEventListener('touchend', (e) => {
       const clientY = e.changedTouches[0].clientY;
       if (prevSpPageYRef.current < clientY) {
@@ -170,6 +172,30 @@ const Home: NextPage = () => {
               <Image alt="" layout="fill" objectFit="cover" src="/pic.png" />
             </div>
             <div className={MainStyles.pin} />
+            <article>
+              <p>
+                ポートフォリオを見ていただきありがとうございます。
+                <br />
+                趣味で行ってたWeb制作を仕事で行いたく20代後半に上京しコーダーとして約6年間従事してきました。
+                <br />
+                そしてFlutterを使用したアプリ開発を趣味で行ってた所、今いる会社にて制作からアプリ開発にアサインされました。
+                <br />
+                そのあとこちらも独学で学んでた React を使用した開発にもアサインされ
+                Web開発も行いました。
+                <br />
+                また直近ですと NestJS を使用したバックエンド実装にも携わりました。
+                <br />
+                そうした中で今回地元に帰省するに辺り転職活動を行うことになりました。
+                <br />
+                今まで学んできた事をアウトプットしつつ、今後はより開発を追求したいと思ってます。
+                <br />
+                ご検討よろしくお願いします。
+              </p>
+              <a href="https://github.com/Ko-Webcreator/Portfolio" rel="noreferrer" target="_blank">
+                <span>Source code is here &#10071;&#65039;</span>
+                <span>Thanks for watching My portfolio &#10083;&#65039;</span>
+              </a>
+            </article>
           </section>
         </main>
       </div>

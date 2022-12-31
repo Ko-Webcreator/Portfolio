@@ -40,64 +40,25 @@
 }
 
 .rect {
+  // 横と縦は基本 animation で制御してるが
+  // First view だけデフォルトが適用されるので必要になる
+  width: 800px;
+  height: 500px;
+
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 0;
-  width: 800px;
-  height: 500px;
   margin: auto;
   overflow: hidden;
   z-index: 10;
   transition: 0.5s;
 
-  &.profile {
-    width: 200px;
-    height: 200px;
-    border-radius: 100%;
-    border: 5px dotted var(--color-white);
-    animation: 1s rotation infinite;
-    bottom: 520px;
-    z-index: 200;
-    mix-blend-mode: difference;
-
-    @include mq(md) {
-      width: get_vw(100);
-      height: get_vw(100);
-      bottom: get_vw(400);
-    }
-  }
-
-  &.expand {
-    animation: 1s expandKey;
-    animation-fill-mode: forwards;
-  }
-
-  &.firstShrink {
-    animation: 0.5s firstShrinkKey;
-    animation-fill-mode: forwards;
-  }
-
-  &.shrink {
-    animation: 0.5s shrinkKey;
-    animation-fill-mode: forwards;
-  }
-
   @include mq(md) {
     width: get_vw(300);
     height: get_vw(160);
-
-    &.firstShrink {
-      animation: 0.5s firstShrinkSPKey;
-      animation-fill-mode: forwards;
-    }
-
-    &.shrink {
-      animation: 0.5s shrinkKey;
-      animation-fill-mode: forwards;
-    }
   }
 
   &::before {
@@ -129,6 +90,54 @@
     border-radius: 5px;
     background: var(--color-black);
   }
+
+  &.profile {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    border: 5px dotted var(--color-white);
+    animation: 1s rotation infinite;
+    bottom: 520px;
+    z-index: 200;
+    mix-blend-mode: difference;
+
+    &::before,
+    &::after {
+      content: none;
+    }
+
+    @include mq(md) {
+      border: 2px dotted var(--color-white);
+      width: 12vh;
+      height: 12vh;
+      bottom: 70vh;
+    }
+  }
+
+  &.expand {
+    animation: 1s expandKey;
+    animation-fill-mode: forwards;
+
+    @include mq(md) {
+      animation: 1s expandSPKey;
+      animation-fill-mode: forwards;
+    }
+  }
+
+  &.firstShrink {
+    animation: 0.5s firstShrinkKey;
+    animation-fill-mode: forwards;
+
+    @include mq(md) {
+      animation: 0.5s firstShrinkSPKey;
+      animation-fill-mode: forwards;
+    }
+  }
+
+  &.shrink {
+    animation: 0.5s shrinkKey;
+    animation-fill-mode: forwards;
+  }
 }
 
 @keyframes rotateKey {
@@ -139,8 +148,8 @@
 
 @keyframes firstShrinkKey {
   from {
-    width: calc(90% - 10px);
-    height: calc(80% - 10px);
+    width: calc(90% - 20px);
+    height: calc(70% - 20px);
   }
   to {
     width: 800px;
@@ -150,8 +159,8 @@
 
 @keyframes firstShrinkSPKey {
   from {
-    width: calc(90% - 10px);
-    height: calc(80% - 10px);
+    width: calc(90% - 20px);
+    height: calc(90% - 20px);
   }
   to {
     width: get_vw(300);
@@ -176,7 +185,18 @@
   }
   to {
     width: calc(90% - 10px);
-    height: calc(80% - 10px);
+    height: calc(70% - 10px);
+  }
+}
+
+@keyframes expandSPKey {
+  from {
+    width: 1%;
+    height: 1%;
+  }
+  to {
+    width: calc(90% - 10px);
+    height: calc(90% - 10px);
   }
 }
 

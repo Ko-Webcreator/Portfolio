@@ -101,11 +101,11 @@ export const useScrollController = () => {
         if (pageIndex.current === 0) {
           onScrollAnimation(0, section.current.clientHeight, 'down', firstSectionRef.current);
 
-          await sleep(time1000);
+          await sleep(time500);
           onMainExpandTransform(main, firstSectionRef.current);
           onRectExpandTransform(rect);
 
-          await sleep(time1000);
+          await sleep(time500);
           slotStart('first_article');
           pageIndex.current += 1;
         } else if (pageIndex.current === 1) {

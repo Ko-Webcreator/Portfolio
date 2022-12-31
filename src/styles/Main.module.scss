@@ -23,16 +23,25 @@
     animation: 1s expandKey;
     animation-fill-mode: forwards;
     background: var(--color-white09);
+
+    @include mq(md) {
+      animation: 1s expandSPKey;
+      animation-fill-mode: forwards;
+    }
   }
 
   &.shrink {
     animation: 0.5s shrinkKey;
     animation-fill-mode: forwards;
+
+    @include mq(md) {
+      animation: 0.5s shrinkSPKey;
+      animation-fill-mode: forwards;
+    }
   }
 
   @include mq(md) {
     width: get_vw(300);
-    height: get_vw(160);
   }
 }
 
@@ -40,7 +49,7 @@
   from {
     opacity: 1;
     width: calc(90% - 20px);
-    height: calc(80% - 20px);
+    height: calc(70% - 20px);
   }
   to {
     opacity: 0;
@@ -56,7 +65,31 @@
   to {
     opacity: 1;
     width: calc(90% - 20px);
-    height: calc(80% - 20px);
+    height: calc(70% - 20px);
+  }
+}
+
+@keyframes shrinkSPKey {
+  from {
+    opacity: 1;
+    width: calc(90% - 20px);
+    height: calc(90% - 20px);
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes expandSPKey {
+  from {
+    opacity: 0;
+    width: 1%;
+    height: 1%;
+  }
+  to {
+    opacity: 1;
+    width: calc(90% - 20px);
+    height: calc(90% - 20px);
   }
 }
 
@@ -163,7 +196,6 @@
     @include mq(md) {
       width: 100%;
       height: auto;
-      max-height: calc(100% - get_vw(161));
       overflow-y: scroll;
       margin-top: get_vw(20);
       padding: 0 0 get_vw(20);
@@ -203,56 +235,194 @@ section {
     position: fixed;
     left: 0;
     top: 0;
-  }
 
-  .icon {
-    width: 200px;
-    height: 200px;
-    position: relative;
-    border-radius: 100%;
-    overflow: hidden;
-    bottom: 260px;
-    opacity: 0;
+    article {
+      max-width: 900px;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      transition: 0.5s;
+      opacity: 0;
+      line-height: 2;
+      position: absolute;
+      margin: auto;
+      border-radius: 10px;
 
-    @include mq(md) {
-      width: get_vw(100);
-      height: get_vw(100);
-      bottom: get_vw(200);
+      @-moz-document url-prefix() {
+        // linear-gradient が Firefox で効かなかった為
+        border: 5px solid var(--color-black);
+      }
+
+      @include mq(md) {
+        max-width: 90%;
+        height: 70vh;
+        padding: get_vw(10) get_vw(20);
+      }
+
+      &::before {
+        content: '';
+        width: calc(100% + 20px);
+        height: calc(100% + 20px);
+        border-radius: 8px;
+        background-image: linear-gradient(
+          var(--rotate),
+          var(--color-black09),
+          var(--color-black05),
+          var(--color-black02)
+        );
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        left: -10px;
+        margin: auto;
+        animation: spin 2.5s linear infinite;
+
+        @include mq(md) {
+          width: calc(100% + get_vw(10));
+          height: calc(100% + get_vw(10));
+          left: get_vw(-5);
+        }
+      }
+
+      &::after {
+        display: block;
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--color-white09);
+        z-index: 0;
+      }
+
+      a,
+      p {
+        position: relative;
+        z-index: 10;
+        font-size: 16px;
+
+        @include mq(md) {
+          font-size: get_vw(16);
+        }
+      }
+
+      p {
+        @include mq(md) {
+          height: calc(100% - get_vw(60));
+          overflow-y: scroll;
+        }
+      }
+
+      a {
+        display: block;
+        width: 400px;
+        height: 50px;
+        line-height: 50px;
+        border: 1px solid #000;
+        margin: 20px auto 0;
+        position: relative;
+        text-align: center;
+
+        @include mq(md) {
+          width: 100%;
+          height: get_vw(40);
+          line-height: get_vw(40);
+          margin: get_vw(15) auto 0;
+        }
+
+        span {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          transition: all 0.3s;
+          left: 0;
+          top: 0;
+
+          &:nth-child(1) {
+            background: var(--color-black);
+            color: var(--color-white);
+            transform: rotateX(90deg);
+            transform-origin: 50% 50% -20px;
+          }
+          &:nth-child(2) {
+            background: var(--color-white);
+            color: var(--color-black);
+            transform: rotateX(0deg);
+            transform-origin: 50% 50% -20px;
+          }
+        }
+
+        &:hover {
+          span {
+            &:nth-child(1) {
+              transform: rotateX(0deg);
+            }
+            &:nth-child(2) {
+              transform: rotateX(-90deg);
+            }
+          }
+        }
+      }
     }
-  }
 
-  .pin {
-    width: 220px;
-    height: 220px;
-    position: absolute;
-    bottom: 520px;
-    top: 0;
-    z-index: -1;
-    transform: rotate(-45deg);
-    border-radius: 60% 60% 60% 0;
-    margin: auto;
-    opacity: 0;
-    animation: spin 2.5s linear infinite;
-    background: var(--color-black);
-
-    @include mq(md) {
-      width: get_vw(120);
-      height: get_vw(120);
-      bottom: get_vw(400);
-    }
-  }
-
-  &.expand {
     .icon {
-      animation: poyon 1.1s linear;
-      animation-fill-mode: backwards;
-      opacity: 1;
+      width: 200px;
+      height: 200px;
+      position: relative;
+      border-radius: 100%;
+      overflow: hidden;
+      bottom: 260px;
+      opacity: 0;
+
+      @include mq(md) {
+        width: 12vh;
+        height: 12vh;
+        bottom: 35vh;
+      }
     }
 
     .pin {
-      animation: pinPoyon 1.1s linear;
-      animation-fill-mode: backwards;
-      opacity: 1;
+      width: 220px;
+      height: 220px;
+      position: absolute;
+      bottom: 520px;
+      top: 0;
+      z-index: -1;
+      transform: rotate(-45deg);
+      border-radius: 60% 60% 60% 0;
+      margin: auto;
+      animation: spin 2.5s linear infinite;
+      background: var(--color-black);
+      opacity: 0;
+
+      @include mq(md) {
+        width: 14vh;
+        height: 14vh;
+        bottom: 70vh;
+      }
+    }
+
+    &.expand {
+      .icon {
+        animation: poyon 1.1s linear;
+        animation-fill-mode: backwards;
+        opacity: 1;
+      }
+
+      .pin {
+        animation: pinPoyon 1.1s linear;
+        animation-fill-mode: backwards;
+        opacity: 1;
+      }
+
+      article {
+        opacity: 1;
+        transform: translateY(110px);
+
+        @include mq(md) {
+          transform: translateY(10vh);
+        }
+      }
     }
   }
 }
