@@ -91,6 +91,9 @@ const Home: NextPage = () => {
             <Image alt="" layout="fill" src="/fukuoka.png" />
           </div>
           <div className={RectStyles.rect} ref={rect} />
+          <p className={RectStyles.copyright} data-text="2023 Ko Portfolio">
+            &copy; 2023 Ko Portfolio
+          </p>
         </section>
         <div className={BlocksStyles.secondBlocks} ref={secondBlock} />
         <main className={MainStyles.wrap} ref={main}>
