@@ -220,6 +220,11 @@ export const useScrollController = () => {
    **/
   useEffect(() => {
     window.addEventListener('resize', async () => {
+      let ua = navigator.userAgent;
+      if ((ua.indexOf('iPhone') > 0 || ua.indexOf('Android') > 0) && ua.indexOf('Mobile') > 0) {
+        return false;
+      }
+
       await sleep(500);
 
       // リサイズ時はスクロール位置をリセットする
@@ -255,7 +260,17 @@ export const useScrollController = () => {
 
       pageIndex.current = 0;
     });
-  }, [header, blocks]);
+  }, [
+    onMainRemoveProfileTransform,
+    onMainShrinkTransform,
+    onRectExpandTransform,
+    onRectFirstShrinkTransform,
+    onRectRemoveLastTransform,
+    onRectRemoveProfileTransform,
+    onRectRemoveShrinkTransform,
+    header,
+    blocks,
+  ]);
 
   return {
     blocks,

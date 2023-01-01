@@ -144,6 +144,7 @@
         width: get_vw(240);
         height: get_vw(150);
         left: get_vw(30);
+        right: auto;
       }
     }
 
@@ -271,7 +272,7 @@ section {
 
       @include mq(md) {
         max-width: 90%;
-        height: 70vh;
+        height: 60vh;
         padding: get_vw(10) get_vw(20);
       }
 
@@ -440,7 +441,7 @@ section {
         transform: translateY(110px);
 
         @include mq(md) {
-          transform: translateY(10vh);
+          transform: translateY(5vh);
         }
       }
     }
