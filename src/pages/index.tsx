@@ -1,13 +1,11 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { useCallback, useEffect, useRef } from 'react';
-import Particles from 'react-particles';
 import { loadFull } from 'tsparticles';
 import { Engine } from 'tsparticles-engine';
 
 import { PageHead } from '@/components/common/PageHead';
 import { useScrollController } from '@/hooks/useScrollController';
-import { config } from '@/libs/particles';
 import BlocksStyles from '@/styles/Blocks.module.scss';
 import HeaderStyles from '@/styles/Header.module.scss';
 import MainStyles from '@/styles/Main.module.scss';
@@ -84,7 +82,7 @@ const Home: NextPage = () => {
             <h2 className={RectStyles.leftFixed} data-text="Portfolio">
               Portfolio
             </h2>
-            <Particles className={BlocksStyles.particles} init={particlesInit} options={config} />
+            {/* <Particles className={BlocksStyles.particles} init={particlesInit} options={config} /> */}
             <div className={RectStyles.fukuoka}>
               <Image alt="" layout="fill" src="/fukuoka.png" />
             </div>
