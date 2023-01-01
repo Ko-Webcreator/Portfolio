@@ -18,9 +18,9 @@ export default class Document extends NextDocument {
           <meta content="#ffffff" name="theme-color" />
 
           {/* OGP */}
-          <meta content="/" property="og:url" />
+          <meta content="https://www.portfolio.fukuoka.jp/" property="og:url" />
           <meta content="website" property="og:type" />
-          <meta content="/ogp.png" property="og:image" />
+          <meta content="https://www.portfolio.fukuoka.jp/ogp.png" property="og:image" />
           <meta content="Ko Portfolio" property="og:title" />
           <meta content="福岡に住む Ko Portfolio Website です" property="og:description" />
           <meta content="summary_large_image" name="twitter:card" />
