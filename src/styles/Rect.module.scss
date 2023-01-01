@@ -34,6 +34,7 @@
   mix-blend-mode: difference;
   width: 253vh;
   height: 119vh;
+  touch-action: none;
 
   @include mq(md) {
     right: auto;
