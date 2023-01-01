@@ -26,7 +26,7 @@ export const config = {
         area: 5000,
         enable: true,
       },
-      value: 20,
+      value: 60,
     },
     opacity: {
       value: 0.5,
