@@ -6,6 +6,7 @@
   justify-content: center;
   width: 100%;
   height: 100%;
+  touch-action: none;
 }
 
 .leftFixed {
@@ -34,7 +35,6 @@
   mix-blend-mode: difference;
   width: 253vh;
   height: 119vh;
-  touch-action: none;
 
   @include mq(md) {
     right: auto;
