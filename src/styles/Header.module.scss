@@ -10,7 +10,7 @@
   left: 0;
   top: 0;
   margin: auto;
-  z-index: 30;
+  z-index: 40;
 
   h1 {
     color: var(--color-white);
@@ -19,9 +19,26 @@
     font-size: 120px;
     z-index: 10;
     position: relative;
+    animation: neon 3s ease-in-out infinite alternate;
 
     @include mq(md) {
       font-size: get_vw(60);
     }
+  }
+}
+
+/*
+* keyframes
+**/
+@keyframes neon {
+  from {
+    text-shadow: 0 0 10px var(--color-white), 0 0 10px var(--color-white),
+      0 0 20px var(--color-white), 0 0 30px var(--color-gold), 0 0 6px var(--color-gold),
+      0 0 70px var(--color-gold) c7, 0 0 90px var(--color-gold), 0 0 120px var(--color-gold);
+  }
+  to {
+    text-shadow: 0 0 5px var(--color-white), 0 0 10px var(--color-white),
+      0 0 15px var(--color-white), 0 0 20px var(--color-gold), 0 0 35px var(--color-gold),
+      0 0 40px var(--color-gold), 0 0 50px var(--color-gold), 0 0 75px var(--color-gold);
   }
 }
