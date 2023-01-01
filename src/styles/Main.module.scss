@@ -45,54 +45,6 @@
   }
 }
 
-@keyframes shrinkKey {
-  from {
-    opacity: 1;
-    width: calc(90% - 20px);
-    height: calc(70% - 20px);
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes expandKey {
-  from {
-    opacity: 0;
-    width: 1%;
-    height: 1%;
-  }
-  to {
-    opacity: 1;
-    width: calc(90% - 20px);
-    height: calc(70% - 20px);
-  }
-}
-
-@keyframes shrinkSPKey {
-  from {
-    opacity: 1;
-    width: calc(90% - 20px);
-    height: calc(90% - 20px);
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes expandSPKey {
-  from {
-    opacity: 0;
-    width: 1%;
-    height: 1%;
-  }
-  to {
-    opacity: 1;
-    width: calc(90% - 20px);
-    height: calc(90% - 20px);
-  }
-}
-
 .section {
   display: flex;
   align-items: center;
@@ -448,6 +400,75 @@ section {
   }
 }
 
+.copyright {
+  width: 100%;
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  font-size: 16px;
+  font-weight: 300;
+  color: darksalmon;
+  mix-blend-mode: unset;
+  text-align: center;
+  z-index: 30;
+
+  @include mq(md) {
+    font-size: get_vw(14);
+    bottom: get_vw(12);
+  }
+}
+
+/*
+* keyframes
+**/
+@keyframes shrinkKey {
+  from {
+    opacity: 1;
+    width: calc(90% - 20px);
+    height: calc(70% - 20px);
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes expandKey {
+  from {
+    opacity: 0;
+    width: 1%;
+    height: 1%;
+  }
+  to {
+    opacity: 1;
+    width: calc(90% - 20px);
+    height: calc(70% - 20px);
+  }
+}
+
+@keyframes shrinkSPKey {
+  from {
+    opacity: 1;
+    width: calc(90% - 20px);
+    height: calc(90% - 20px);
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes expandSPKey {
+  from {
+    opacity: 0;
+    width: 1%;
+    height: 1%;
+  }
+  to {
+    opacity: 1;
+    width: calc(90% - 20px);
+    height: calc(90% - 20px);
+  }
+}
+
 @keyframes spin {
   0% {
     --rotate: 0deg;
@@ -514,23 +535,5 @@ section {
   }
   100% {
     transform: scale(1, 1) translate(0%, 0%) rotate(-45deg);
-  }
-}
-
-.copyright {
-  width: 100%;
-  position: fixed;
-  bottom: 20px;
-  left: 0;
-  font-size: 16px;
-  font-weight: 300;
-  color: darksalmon;
-  mix-blend-mode: unset;
-  text-align: center;
-  z-index: 30;
-
-  @include mq(md) {
-    font-size: get_vw(14);
-    bottom: get_vw(12);
   }
 }

@@ -76,17 +76,6 @@
   }
 }
 
-@keyframes pulseKey {
-  0% {
-    transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.5);
-    opacity: 0;
-  }
-}
-
 .arrowInner {
   width: 100%;
   height: 100%;
@@ -122,4 +111,18 @@
   background: var(--color-white);
   position: relative;
   z-index: 20;
+}
+
+/*
+* keyframes
+**/
+@keyframes pulseKey {
+  0% {
+    transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.5);
+    opacity: 0;
+  }
 }

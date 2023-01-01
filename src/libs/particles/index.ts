@@ -4,7 +4,6 @@ import { ISourceOptions } from 'tsparticles-engine';
 // https://github.com/matteobruni/tsparticles/tree/main/components/react
 
 export const config = {
-  detectRetina: true,
   fpsLimit: 60,
   interactivity: {
     events: {

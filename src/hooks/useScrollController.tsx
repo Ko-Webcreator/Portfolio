@@ -89,9 +89,6 @@ export const useScrollController = () => {
 
   const onFirstController = useCallback(
     async (deltaY: number) => {
-      const time500 = 500,
-        time1000 = 1000;
-
       if (isAnimatingRef.current) {
         return;
       }
@@ -103,46 +100,46 @@ export const useScrollController = () => {
         if (pageIndex.current === 0) {
           onScrollAnimation(0, section.current.clientHeight, 'down', firstSectionRef.current);
 
-          await sleep(time500);
+          await sleep(500);
           onMainExpandTransform(main, firstSectionRef.current);
           onRectExpandTransform(rect);
 
-          await sleep(time500);
+          await sleep(500);
           slotStart('first_article');
 
-          await sleep(time1000);
+          await sleep(1000);
           pageIndex.current += 1;
         } else if (pageIndex.current === 1) {
           onMainShrinkTransform(main, firstSectionRef.current);
           onRectShrinkTransform(rect);
 
-          await sleep(time1000);
+          await sleep(1000);
           onMainExpandTransform(main, secondSectionRef.current);
           onRectExpandTransform(rect);
 
-          await sleep(time500);
+          await sleep(500);
           slotStart('second_article');
           pageIndex.current += 1;
         } else if (pageIndex.current === 2) {
           onMainShrinkTransform(main, secondSectionRef.current);
           onRectShrinkTransform(rect);
 
-          await sleep(time1000);
+          await sleep(1000);
           onMainExpandTransform(main, thirdSectionRef.current);
           onRectExpandTransform(rect);
 
-          await sleep(time500);
+          await sleep(500);
           slotStart('third_article');
           pageIndex.current += 1;
         } else if (pageIndex.current === 3) {
           onMainShrinkTransform(main, thirdSectionRef.current);
           onRectShrinkTransform(rect);
 
-          await sleep(time1000);
+          await sleep(1000);
           onMainProfileTransform(main, fourSectionRef.current);
           onRectProfileTransform(rect);
 
-          await sleep(time1000);
+          await sleep(1000);
           pageIndex.current += 1;
         }
       } else if (deltaY < 0 && currentYRef.current > 0) {
@@ -152,7 +149,7 @@ export const useScrollController = () => {
           onMainShrinkTransform(main, firstSectionRef.current);
           onRectFirstShrinkTransform(rect);
 
-          await sleep(time500);
+          await sleep(500);
           onRectRemoveShrinkTransform(rect);
 
           pageIndex.current -= 1;
@@ -160,22 +157,22 @@ export const useScrollController = () => {
           onMainShrinkTransform(main, secondSectionRef.current);
           onRectShrinkTransform(rect);
 
-          await sleep(time1000);
+          await sleep(1000);
           onMainExpandTransform(main, firstSectionRef.current);
           onRectExpandTransform(rect);
 
-          await sleep(time500);
+          await sleep(500);
           slotStart('first_article');
           pageIndex.current -= 1;
         } else if (pageIndex.current === 3) {
           onMainShrinkTransform(main, thirdSectionRef.current);
           onRectShrinkTransform(rect);
 
-          await sleep(time1000);
+          await sleep(1000);
           onMainExpandTransform(main, secondSectionRef.current);
           onRectExpandTransform(rect);
 
-          await sleep(time500);
+          await sleep(500);
           slotStart('second_article');
           pageIndex.current -= 1;
         } else if (pageIndex.current === 4) {
@@ -185,11 +182,11 @@ export const useScrollController = () => {
           onRectRemoveLastTransform(rect);
           onRectRemoveProfileTransform(rect);
 
-          await sleep(time500);
+          await sleep(500);
           onRectExpandTransform(rect);
           onMainExpandTransform(main, thirdSectionRef.current);
 
-          await sleep(time1000);
+          await sleep(1000);
 
           pageIndex.current -= 1;
         }
@@ -215,19 +212,18 @@ export const useScrollController = () => {
     ],
   );
 
-  /*
-   * scroll reset
-   **/
   useEffect(() => {
     window.addEventListener('resize', async () => {
-      let ua = navigator.userAgent;
+      const ua = navigator.userAgent;
       if ((ua.indexOf('iPhone') > 0 || ua.indexOf('Android') > 0) && ua.indexOf('Mobile') > 0) {
         return false;
       }
 
+      /*
+       * リサイズ時はスクロール位置をリセットする
+       **/
       await sleep(500);
 
-      // リサイズ時はスクロール位置をリセットする
       currentYRef.current = 0;
       header.current.style.transform = `translateY(${currentYRef.current}px)`;
       blocks.current.style.transform = `translateY(${currentYRef.current}px)`;

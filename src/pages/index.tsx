@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useCallback, useEffect, useRef } from 'react';
@@ -16,9 +15,9 @@ import RectStyles from '@/styles/Rect.module.scss';
 import WholeStyles from '@/styles/Whole.module.scss';
 
 import type { NextPage } from 'next';
-const AnimateCanvas = dynamic(() => import('@/components/AnimateCanvas'), {
-  ssr: false,
-});
+// const AnimateCanvas = dynamic(() => import('@/components/AnimateCanvas'), {
+//   ssr: false,
+// });
 
 const Home: NextPage = () => {
   const prevSpPageYRef = useRef(0);
@@ -85,12 +84,7 @@ const Home: NextPage = () => {
             <h2 className={RectStyles.leftFixed} data-text="Portfolio">
               Portfolio
             </h2>
-            <Particles
-              className={BlocksStyles.particles}
-              id="tsparticles"
-              init={particlesInit}
-              options={config}
-            />
+            <Particles className={BlocksStyles.particles} init={particlesInit} options={config} />
             <div className={RectStyles.fukuoka}>
               <Image alt="" layout="fill" src="/fukuoka.png" />
             </div>
@@ -151,7 +145,6 @@ const Home: NextPage = () => {
               <figure>
                 <a href="https://yomcoma.com/writer/" rel="noreferrer" target="_blank" />
                 <iframe src="https://yomcoma.com/writer/" />
-
                 <Image alt="" layout="fill" src="/mac.png" />
               </figure>
               <article id="third_article">

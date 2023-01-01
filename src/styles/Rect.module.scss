@@ -46,8 +46,10 @@
 }
 
 .rect {
-  // 横と縦は基本 animation で制御してるが
-  // First view だけデフォルトが適用されるので必要になる
+  /*
+  * 縦横は基本 animation で制御してるが
+  * First view だけデフォルトが適用されるので必要になる
+  **/
   width: 800px;
   height: 500px;
 
@@ -147,6 +149,9 @@
   }
 }
 
+/*
+* keyframes
+**/
 @keyframes rotateKey {
   100% {
     transform: rotate(1turn);
