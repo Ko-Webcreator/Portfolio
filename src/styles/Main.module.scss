@@ -317,6 +317,8 @@ section {
         position: relative;
         z-index: 10;
         font-size: 16px;
+        mix-blend-mode: exclusion;
+        color: var(--color-white);
 
         @include mq(md) {
           font-size: get_vw(16);
