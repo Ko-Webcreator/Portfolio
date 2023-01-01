@@ -119,8 +119,7 @@ const Home: NextPage = () => {
                   <b>説明 :</b>
                   <span
                     data-slot="WordPress を Headless にして GraphQL にて API
-                を作成しました、ページ生成は NuxtJS の static generate 機能を使用して
-                表示しています。"
+                を作成しました、ページ生成は NuxtJS の static generate 機能を使用して実装しています。"
                   />
                 </p>
               </article>
