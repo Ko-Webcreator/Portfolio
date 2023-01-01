@@ -6,6 +6,10 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
     'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+
+  // iPhone用
+  // https://bashalog.c-brains.jp/18/12/04-150940.php
+  overscroll-behavior: none;
 }
 
 /* stylelint-disable-next-line selector-id-pattern */
