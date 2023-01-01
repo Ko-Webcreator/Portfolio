@@ -200,8 +200,8 @@ const Home: NextPage = () => {
                   rel="noreferrer"
                   target="_blank"
                 >
-                  <span>Source code is here &#10071;&#65039;</span>
-                  <span>Thanks for watching My portfolio &#10083;&#65039;</span>
+                  <span>Source code is here ❤</span>
+                  <span>Thanks for watching My portfolio！</span>
                 </a>
               </article>
             </section>
