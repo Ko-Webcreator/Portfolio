@@ -63,6 +63,7 @@ export const useScrollController = () => {
             animationID = requestAnimationFrame(move);
           } else {
             currentYRef.current = currentPosition;
+            cancelAnimationFrame(animationID);
           }
         } else {
           progress++; // 進捗を進める
@@ -76,6 +77,7 @@ export const useScrollController = () => {
             animationID = requestAnimationFrame(move);
           } else {
             currentYRef.current = range;
+            cancelAnimationFrame(animationID);
           }
         }
       };
@@ -107,6 +109,8 @@ export const useScrollController = () => {
 
           await sleep(time500);
           slotStart('first_article');
+
+          await sleep(time1000);
           pageIndex.current += 1;
         } else if (pageIndex.current === 1) {
           onMainShrinkTransform(main, firstSectionRef.current);
@@ -215,12 +219,41 @@ export const useScrollController = () => {
    * scroll reset
    **/
   useEffect(() => {
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', async () => {
+      await sleep(500);
+
       // リサイズ時はスクロール位置をリセットする
-      // currentYRef.current = 0;
-      // header.current.style.transform = `translateY(${currentYRef.current}px)`;
-      // blocks.current.style.transform = `translateY(${currentYRef.current}px)`;
-      // secondBlock.current.style.transform = `translateY(${currentYRef.current}px)`;
+      currentYRef.current = 0;
+      header.current.style.transform = `translateY(${currentYRef.current}px)`;
+      blocks.current.style.transform = `translateY(${currentYRef.current}px)`;
+      secondBlock.current.style.transform = `translateY(${currentYRef.current}px)`;
+
+      if (pageIndex.current === 1) {
+        onMainShrinkTransform(main, firstSectionRef.current);
+      }
+      if (pageIndex.current === 2) {
+        onMainShrinkTransform(main, secondSectionRef.current);
+      }
+      if (pageIndex.current === 3) {
+        onMainShrinkTransform(main, thirdSectionRef.current);
+      }
+      if (pageIndex.current === 4) {
+        onMainRemoveProfileTransform(main, fourSectionRef.current);
+
+        onRectRemoveLastTransform(rect);
+        onRectRemoveProfileTransform(rect);
+
+        await sleep(500);
+        onRectExpandTransform(rect);
+      }
+
+      onRectFirstShrinkTransform(rect);
+
+      await sleep(500);
+
+      onRectRemoveShrinkTransform(rect);
+
+      pageIndex.current = 0;
     });
   }, [header, blocks]);
 

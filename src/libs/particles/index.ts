@@ -5,7 +5,7 @@ import { ISourceOptions } from 'tsparticles-engine';
 
 export const config = {
   detectRetina: true,
-  fpsLimit: 120,
+  fpsLimit: 60,
   interactivity: {
     events: {
       resize: true,
@@ -46,7 +46,7 @@ export const config = {
     },
     number: {
       density: {
-        area: 3000,
+        area: 10000,
         enable: true,
       },
       value: 80,

@@ -70,7 +70,6 @@ const Home: NextPage = () => {
         <div className={WholeStyles.childWrap}>
           <PageHead description="Ko Portfolio" />
           <header className={HeaderStyles.title} ref={header}>
-            <AnimateCanvas />
             <h1>
               Ko
               <br />
@@ -184,7 +183,7 @@ const Home: NextPage = () => {
                 <p>
                   ポートフォリオを見ていただきありがとうございます。
                   <br />
-                  趣味で行ってたWeb制作を仕事で行いたく20代後半に上京しコーダーとして約6年間従事してきました。
+                  趣味で行ってたWeb制作を仕事で行いたく20代後半に上京しコーダーとして約7年間従事してきました。
                   <br />
                   そしてFlutterを使用したアプリ開発を趣味で行ってた所、今いる会社にて制作からアプリ開発にアサインされました。
                   <br />
@@ -193,7 +192,7 @@ const Home: NextPage = () => {
                   <br />
                   また直近ですと NestJS を使用したバックエンド実装にも携わりました。
                   <br />
-                  そうした中で今回地元に帰省するに辺り転職活動を行うことになりました。
+                  そうした中で今回地元に帰省するので転職活動を行うことになりました。
                   <br />
                   今まで学んできた事をアウトプットしつつ、今後はより開発を追求したいと思ってます。
                   <br />

@@ -12,12 +12,17 @@
   position: fixed;
   top: 0;
   left: 0;
+  bottom: 0;
   z-index: 50;
   font-size: 25vh;
   color: var(--color-white);
   text-indent: -2vh;
   opacity: 0.1;
   writing-mode: vertical-rl;
+  text-align: center;
+  bottom: 0;
+  margin: auto;
+  text-align: center;
 }
 
 .fukuoka {
@@ -25,8 +30,8 @@
   right: -100vh;
   bottom: -10vh;
   margin: auto;
-  z-index: 20;
-  mix-blend-mode: lighten;
+  z-index: 30;
+  mix-blend-mode: difference;
   width: 253vh;
   height: 119vh;
 
@@ -50,11 +55,11 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 0;
   margin: auto;
   overflow: hidden;
-  z-index: 10;
+  z-index: 50;
   transition: 0.5s;
+  mix-blend-mode: difference;
 
   @include mq(md) {
     width: get_vw(300);
@@ -77,6 +82,7 @@
     background-position: 0 0, 100% 0, 100% 100%, 0 100%;
     background-size: 50% 50%, 50% 50%;
     animation: rotateKey 10s linear infinite;
+    animation-fill-mode: forwards;
   }
 
   &::after {
@@ -103,7 +109,7 @@
 
     &::before,
     &::after {
-      content: none;
+      opacity: 0;
     }
 
     @include mq(md) {

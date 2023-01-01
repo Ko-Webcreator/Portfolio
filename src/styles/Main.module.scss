@@ -120,23 +120,29 @@
   }
 
   figure {
-    width: 600px;
-    height: 324px;
+    width: 500px;
+    height: 295px;
     position: relative;
 
     @include mq(md) {
       width: get_vw(300);
-      height: get_vw(161);
+      height: get_vw(177);
     }
 
     iframe,
     a {
-      width: 73%;
-      height: 88%;
+      width: 402px;
+      height: 250px;
       position: absolute;
-      left: 17%;
-      top: 1%;
+      left: 50px;
+      top: 5%;
       border-radius: 5px;
+
+      @include mq(md) {
+        width: get_vw(240);
+        height: get_vw(150);
+        left: get_vw(30);
+      }
     }
 
     iframe {
@@ -249,6 +255,13 @@ section {
 
       @-moz-document url-prefix() {
         // linear-gradient が Firefox で効かなかった為
+        border: 5px solid var(--color-black);
+      }
+
+      _::-webkit-full-page-media,
+      _:future,
+      :root & {
+        // linear-gradient が safari で効かなかった為
         border: 5px solid var(--color-black);
       }
 
