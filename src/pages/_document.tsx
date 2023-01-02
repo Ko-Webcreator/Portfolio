@@ -6,7 +6,6 @@ export default class Document extends NextDocument {
       <Html>
         <Head>
           <meta charSet="utf-8" />
-          <meta content="福岡に住む Ko Portfolio Website です" name="description" />
 
           {/* Favicons */}
           <link href="/favicons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
@@ -16,14 +15,6 @@ export default class Document extends NextDocument {
           <link color="#5bbad5" href="/favicons/safari-pinned-tab.svg" rel="mask-icon" />
           <meta content="#da532c" name="msapplication-TileColor" />
           <meta content="#ffffff" name="theme-color" />
-
-          {/* OGP */}
-          <meta content="https://portfolio.fukuoka.jp/" property="og:url" />
-          <meta content="website" property="og:type" />
-          <meta content="https://portfolio.fukuoka.jp/ogp.png" property="og:image" />
-          <meta content="Ko Portfolio" property="og:title" />
-          <meta content="福岡に住む Ko Portfolio Website です" property="og:description" />
-          <meta content="summary_large_image" name="twitter:card" />
         </Head>
         <body>
           <Main />

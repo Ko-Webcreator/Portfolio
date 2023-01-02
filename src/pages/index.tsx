@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Image from 'next/image';
 import { useCallback, useEffect, useRef } from 'react';
 import Particles from 'react-particles';
@@ -61,12 +60,9 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Ko Portfolio</title>
-      </Head>
+      <PageHead description="福岡に住む Ko Portfolio Site です" />
       <div className={`${WholeStyles.wrap}`}>
         <div className={WholeStyles.childWrap}>
-          <PageHead description="Ko Portfolio" />
           <header className={HeaderStyles.title} ref={header}>
             <h1>
               Ko
