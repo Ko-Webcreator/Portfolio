@@ -12,6 +12,7 @@ body {
 // https://necomesi.jp/blog/tsmd/posts/180
 * {
   overscroll-behavior: none;
+  touch-action: none;
 }
 
 /* stylelint-disable-next-line selector-id-pattern */
