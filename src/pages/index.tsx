@@ -60,7 +60,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <PageHead description="福岡に住む Web creator Ko の Portfolio Site です。" />
+      <PageHead description="福岡に住む Ko Web Creator の Portfolio Site です。" />
       <div className={`${WholeStyles.wrap}`}>
         <div className={WholeStyles.childWrap}>
           <header className={HeaderStyles.title} ref={header}>
