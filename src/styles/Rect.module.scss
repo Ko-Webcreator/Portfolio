@@ -8,6 +8,9 @@
   height: 100%;
   touch-action: none;
   background: var(--color-black);
+
+  //SP対策
+  touch-action: none;
 }
 
 .leftFixed {
@@ -250,6 +253,9 @@
   background: var(--color-white);
   position: relative;
   z-index: 20;
+
+  //SP対策
+  touch-action: none;
 }
 
 /*
