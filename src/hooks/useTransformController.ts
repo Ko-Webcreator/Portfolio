@@ -22,8 +22,9 @@ export const useTransformController = () => {
   );
 
   const onMainProfileTransform = useCallback(
-    async (main: MutableRefObject<HTMLElement>, section: HTMLElement) => {
+    async (main: MutableRefObject<HTMLElement>, section: HTMLElement, arrow: HTMLDivElement) => {
       main.current.classList.add(MainStyles.profile);
+      arrow.classList.add(RectStyles.up);
 
       await sleep(1000);
 
@@ -33,9 +34,10 @@ export const useTransformController = () => {
   );
 
   const onMainRemoveProfileTransform = useCallback(
-    async (main: MutableRefObject<HTMLElement>, section: HTMLElement) => {
+    async (main: MutableRefObject<HTMLElement>, section: HTMLElement, arrow: HTMLDivElement) => {
       main.current.classList.remove(MainStyles.profile);
       section.classList.remove(MainStyles.expand);
+      arrow.classList.remove(RectStyles.up);
     },
     [],
   );

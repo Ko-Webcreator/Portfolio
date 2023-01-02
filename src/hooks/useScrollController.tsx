@@ -9,9 +9,9 @@ import { useTransformController } from './useTransformController';
 export const useScrollController = () => {
   const main = useRef<HTMLElement>(null!);
   const header = useRef<HTMLElement>(null!);
-  const blocks = useRef<HTMLDivElement>(null!);
   const section = useRef<HTMLElement>(null!);
   const rect = useRef<HTMLDivElement>(null!);
+  const arrow = useRef<HTMLDivElement>(null!);
   const secondBlock = useRef<HTMLDivElement>(null!);
 
   const currentYRef = useRef(0); // スクロール位置
@@ -55,7 +55,6 @@ export const useScrollController = () => {
           progress++; // 進捗を進める
           currentPosition = range * easeOut(progress / 100); // スクロールする位置を計算する
           header.current.style.transform = `translateY(-${currentPosition}px)`;
-          blocks.current.style.transform = `translateY(-${currentPosition}px)`;
           secondBlock.current.style.transform = `translateY(-${currentPosition}px)`;
 
           if (currentPosition < range) {
@@ -69,7 +68,6 @@ export const useScrollController = () => {
           progress++; // 進捗を進める
           currentPosition = position - position * easeOut(progress / 100); // スクロールする位置を計算する
           header.current.style.transform = `translateY(-${currentPosition}px)`;
-          blocks.current.style.transform = `translateY(-${currentPosition}px)`;
           secondBlock.current.style.transform = `translateY(-${currentPosition}px)`;
 
           if (currentPosition > range) {
@@ -84,7 +82,7 @@ export const useScrollController = () => {
 
       move();
     },
-    [currentYRef, header, blocks],
+    [currentYRef, header],
   );
 
   const onFirstController = useCallback(
@@ -136,7 +134,7 @@ export const useScrollController = () => {
           onRectShrinkTransform(rect);
 
           await sleep(1000);
-          onMainProfileTransform(main, fourSectionRef.current);
+          onMainProfileTransform(main, fourSectionRef.current, arrow.current);
           onRectProfileTransform(rect);
 
           await sleep(1000);
@@ -176,7 +174,7 @@ export const useScrollController = () => {
           slotStart('second_article');
           pageIndex.current -= 1;
         } else if (pageIndex.current === 4) {
-          onMainRemoveProfileTransform(main, fourSectionRef.current);
+          onMainRemoveProfileTransform(main, fourSectionRef.current, arrow.current);
           onRectLastTransform(rect);
 
           onRectRemoveLastTransform(rect);
@@ -226,7 +224,6 @@ export const useScrollController = () => {
 
       currentYRef.current = 0;
       header.current.style.transform = `translateY(${currentYRef.current}px)`;
-      blocks.current.style.transform = `translateY(${currentYRef.current}px)`;
       secondBlock.current.style.transform = `translateY(${currentYRef.current}px)`;
 
       if (pageIndex.current === 1) {
@@ -239,7 +236,7 @@ export const useScrollController = () => {
         onMainShrinkTransform(main, thirdSectionRef.current);
       }
       if (pageIndex.current === 4) {
-        onMainRemoveProfileTransform(main, fourSectionRef.current);
+        onMainRemoveProfileTransform(main, fourSectionRef.current, arrow.current);
 
         onRectRemoveLastTransform(rect);
         onRectRemoveProfileTransform(rect);
@@ -265,11 +262,10 @@ export const useScrollController = () => {
     onRectRemoveProfileTransform,
     onRectRemoveShrinkTransform,
     header,
-    blocks,
   ]);
 
   return {
-    blocks,
+    arrow,
     firstSectionRef,
     fourSectionRef,
     header,

@@ -8,7 +8,6 @@ import { Engine } from 'tsparticles-engine';
 import { PageHead } from '@/components/common/PageHead';
 import { useScrollController } from '@/hooks/useScrollController';
 import { config } from '@/libs/particles';
-import BlocksStyles from '@/styles/Blocks.module.scss';
 import HeaderStyles from '@/styles/Header.module.scss';
 import MainStyles from '@/styles/Main.module.scss';
 import RectStyles from '@/styles/Rect.module.scss';
@@ -23,7 +22,7 @@ const Home: NextPage = () => {
   const prevSpPageYRef = useRef(0);
 
   const {
-    blocks,
+    arrow,
     firstSectionRef,
     fourSectionRef,
     header,
@@ -75,22 +74,20 @@ const Home: NextPage = () => {
               Portfolio
             </h1>
           </header>
-          <div className={BlocksStyles.wrap} ref={blocks}>
-            <div className={BlocksStyles.arrow}>
-              <div className={BlocksStyles.arrowInner} />
-            </div>
-          </div>
           <section className={RectStyles.wrap} ref={section}>
             <h2 className={RectStyles.leftFixed} data-text="Portfolio">
               Portfolio
             </h2>
-            <Particles className={BlocksStyles.particles} init={particlesInit} options={config} />
+            <Particles className={RectStyles.particles} init={particlesInit} options={config} />
             <div className={RectStyles.fukuoka}>
               <Image alt="" layout="fill" src="/fukuoka.png" />
             </div>
             <div className={RectStyles.rect} ref={rect} />
+            <div className={RectStyles.arrow} ref={arrow}>
+              <div className={RectStyles.arrowInner} />
+            </div>
           </section>
-          <div className={BlocksStyles.secondBlocks} ref={secondBlock} />
+          <div className={RectStyles.secondBlocks} ref={secondBlock} />
           <main className={MainStyles.wrap} ref={main}>
             <section className={MainStyles.section} ref={firstSectionRef}>
               <figure>
