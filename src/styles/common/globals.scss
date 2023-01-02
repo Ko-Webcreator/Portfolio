@@ -8,6 +8,11 @@ body {
     'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 
+// iPhone用
+*:not(article) {
+  touch-action: none;
+}
+
 /* stylelint-disable-next-line selector-id-pattern */
 #__next {
   width: 100%;

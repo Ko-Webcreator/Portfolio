@@ -10,9 +10,6 @@
   margin: auto;
   z-index: 100;
 
-  //SP対策
-  touch-action: none;
-
   &.expand {
     width: calc(90% - 5px);
     height: calc(80% - 5px);
