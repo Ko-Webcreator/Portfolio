@@ -8,10 +8,6 @@
   height: 100%;
   touch-action: none;
   background: var(--color-black);
-
-  // iPhone用
-  // https://necomesi.jp/blog/tsmd/posts/180
-  overscroll-behavior: none;
 }
 
 .leftFixed {
@@ -254,10 +250,6 @@
   background: var(--color-white);
   position: relative;
   z-index: 20;
-
-  // iPhone用
-  // https://necomesi.jp/blog/tsmd/posts/180
-  overscroll-behavior: none;
 }
 
 /*
