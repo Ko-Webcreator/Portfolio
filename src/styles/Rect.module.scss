@@ -38,6 +38,10 @@
   width: 253vh;
   height: 119vh;
 
+  // iPhone用
+  // https://necomesi.jp/blog/tsmd/posts/180
+  overscroll-behavior: none;
+
   @include mq(md) {
     right: auto;
     bottom: 0;
@@ -250,6 +254,10 @@
   background: var(--color-white);
   position: relative;
   z-index: 20;
+
+  // iPhone用
+  // https://necomesi.jp/blog/tsmd/posts/180
+  overscroll-behavior: none;
 }
 
 /*
