@@ -1,7 +1,6 @@
 # Ko Portfolio
 
-![ogp](https://user-images.githubusercontent.com/114800535/210173751-e220ef13-bd81-4228-bedf-46e1f810e47b.png)
-
+![OGP](https://user-images.githubusercontent.com/114800535/210194290-e3fb2462-0a11-4786-b128-3678bb0862ff.png)
 
 ## 制作環境
 
