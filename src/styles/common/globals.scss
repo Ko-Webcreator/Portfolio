@@ -9,7 +9,9 @@ body {
 }
 
 // iPhone用
+// https://necomesi.jp/blog/tsmd/posts/180
 * {
+  overscroll-behavior: none;
   touch-action: none;
 }
 
