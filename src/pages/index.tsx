@@ -45,6 +45,12 @@ const Home: NextPage = () => {
     });
 
     window.addEventListener('touchend', (e) => {
+      const path = (e as any).path;
+      if (path.length && path[0].classList.contains('notMove')) {
+        //要素内のスクロール時だけ無効にする
+        return;
+      }
+
       const clientY = e.changedTouches[0].clientY;
       if (prevSpPageYRef.current < clientY) {
         onFirstController(-1);
@@ -162,7 +168,7 @@ const Home: NextPage = () => {
               </div>
               <div className={MainStyles.pin} />
               <article>
-                <p>
+                <p className="notMove">
                   ポートフォリオを見ていただきありがとうございます。
                   <br />
                   趣味で行ってたWeb制作を仕事で行いたく20代後半に上京しコーダーとして約7年間従事してきました。

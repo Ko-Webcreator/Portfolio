@@ -136,11 +136,6 @@
     mix-blend-mode: exclusion;
     color: var(--color-white);
 
-    // iPhone用
-    * {
-      touch-action: auto;
-    }
-
     span {
       margin-left: 10px;
 
@@ -216,11 +211,6 @@ section {
       margin: auto;
       border-radius: 10px;
 
-      // iPhone用
-      * {
-        touch-action: auto;
-      }
-
       @-moz-document url-prefix() {
         // linear-gradient が Firefox で効かなかった為
         border: 5px solid var(--color-black);
@@ -293,6 +283,7 @@ section {
         @include mq(md) {
           height: calc(100% - get_vw(60));
           overflow-y: scroll;
+          touch-action: auto;
         }
       }
 
