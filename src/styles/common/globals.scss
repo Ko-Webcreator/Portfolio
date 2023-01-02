@@ -9,7 +9,7 @@ body {
 }
 
 // iPhone用
-*:not(article) {
+* {
   touch-action: none;
 }
 

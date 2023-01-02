@@ -136,6 +136,11 @@
     mix-blend-mode: exclusion;
     color: var(--color-white);
 
+    // iPhone用
+    * {
+      touch-action: auto;
+    }
+
     span {
       margin-left: 10px;
 
@@ -210,6 +215,11 @@ section {
       position: absolute;
       margin: auto;
       border-radius: 10px;
+
+      // iPhone用
+      * {
+        touch-action: auto;
+      }
 
       @-moz-document url-prefix() {
         // linear-gradient が Firefox で効かなかった為
