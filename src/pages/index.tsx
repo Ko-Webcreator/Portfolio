@@ -45,11 +45,11 @@ const Home: NextPage = () => {
     });
 
     window.addEventListener('touchend', (e) => {
-      // const path = (e as any).path;
-      // if (path.length && path[0].classList.contains('notMove')) {
-      //   //要素内のスクロール時だけ無効にする
-      //   return;
-      // }
+      const path = (e as any).path;
+      if (path.length && path[0].classList.contains('notMove')) {
+        //要素内のスクロール時だけ無効にする
+        return;
+      }
 
       const clientY = e.changedTouches[0].clientY;
       if (prevSpPageYRef.current < clientY) {
