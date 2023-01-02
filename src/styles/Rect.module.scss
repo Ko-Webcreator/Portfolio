@@ -171,6 +171,13 @@
   border-radius: 100%;
   z-index: 40;
 
+  @include mq(md) {
+    width: get_vw(40);
+    height: get_vw(40);
+    right: 15px;
+    bottom: 20px;
+  }
+
   &.up {
     transform: rotate(180deg);
   }
@@ -205,13 +212,6 @@
     border-radius: 100%;
     margin: auto;
     z-index: 0;
-  }
-
-  @include mq(md) {
-    width: 40px;
-    height: 40px;
-    right: 15px;
-    bottom: 20px;
   }
 }
 
@@ -311,7 +311,7 @@
   }
   to {
     width: calc(90% - 10px);
-    height: calc(90% - 10px);
+    height: calc(80% - 10px);
   }
 }
 

@@ -212,6 +212,9 @@ export const useScrollController = () => {
 
   useEffect(() => {
     window.addEventListener('resize', async () => {
+      /*
+       * ブラウザでSPのレスポンシブ確認をしてる時は効かないのでリロードする
+       **/
       const ua = navigator.userAgent;
       if ((ua.indexOf('iPhone') > 0 || ua.indexOf('Android') > 0) && ua.indexOf('Mobile') > 0) {
         return false;

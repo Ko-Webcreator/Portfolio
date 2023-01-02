@@ -75,6 +75,7 @@
     width: 500px;
     height: 295px;
     position: relative;
+    overflow: hidden;
 
     @include mq(md) {
       width: get_vw(300);
@@ -449,7 +450,7 @@ section {
   from {
     opacity: 1;
     width: calc(90% - 20px);
-    height: calc(90% - 20px);
+    height: calc(80% - 20px);
   }
   to {
     opacity: 0;
@@ -465,7 +466,7 @@ section {
   to {
     opacity: 1;
     width: calc(90% - 20px);
-    height: calc(90% - 20px);
+    height: calc(80% - 20px);
   }
 }
 
