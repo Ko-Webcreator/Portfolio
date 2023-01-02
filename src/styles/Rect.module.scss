@@ -8,6 +8,10 @@
   height: 100%;
   touch-action: none;
   background: var(--color-black);
+
+  // iPhone用
+  // https://necomesi.jp/blog/tsmd/posts/180
+  overscroll-behavior: none;
 }
 
 .leftFixed {
@@ -37,10 +41,6 @@
   mix-blend-mode: difference;
   width: 253vh;
   height: 119vh;
-
-  // iPhone用
-  // https://necomesi.jp/blog/tsmd/posts/180
-  overscroll-behavior: none;
 
   @include mq(md) {
     right: auto;
