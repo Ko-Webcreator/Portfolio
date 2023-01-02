@@ -78,8 +78,8 @@
     overflow: hidden;
 
     @include mq(md) {
-      width: get_vw(300);
-      height: get_vw(177);
+      width: get_vw(250);
+      height: get_vw(147);
     }
 
     iframe,
@@ -94,9 +94,9 @@
       border-radius: 5px;
 
       @include mq(md) {
-        width: get_vw(240);
-        height: get_vw(150);
-        left: get_vw(30);
+        width: get_vw(200);
+        height: get_vw(130);
+        left: get_vw(25);
         right: auto;
       }
     }
