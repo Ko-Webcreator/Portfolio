@@ -22,7 +22,7 @@ npm run dev
 yarn dev
 ```
 
-## 確認環境
+## PC確認環境
 ### Windows
 - Chrome
 - Firefox
@@ -31,6 +31,10 @@ yarn dev
 - Chrome
 - Firefox
 - Safari
+
+## SP確認環境
+- iPhone8 (375x667)
+- iPhone12 Pro (390x844)
 
 ## デプロイ先
 [Vercel](https://vercel.com/) : https://www.portfolio.fukuoka.jp/
