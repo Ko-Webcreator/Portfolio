@@ -158,7 +158,7 @@ const Home: NextPage = () => {
                 </p>
                 <p>
                   <b>説明 :</b>
-                  <span data-slot="アプリ開発後は Web の管理画面開発を任さられました。フロントは NextJS を使用して開発してます。またバックエンドの実装も一部任さられました。バックエンドは NestJS と MySQL でインフラ周りは GCP を使用しています。" />
+                  <span data-slot="アプリ開発後は Web の管理画面開発を行いました。NextJS を使用して実装してます。またバックエンドの実装も行いました。バックエンドは NestJS と MySQL でインフラ周りは GCP を使用しています。" />
                 </p>
               </article>
             </section>
