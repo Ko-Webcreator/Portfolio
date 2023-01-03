@@ -82,7 +82,7 @@ const Home: NextPage = () => {
             </h2>
             <Particles className={RectStyles.particles} init={particlesInit} options={config} />
             <div className={RectStyles.fukuoka}>
-              <Image alt="" layout="fill" src="/fukuoka.png" />
+              <Image alt="" layout="fill" sizes="(max-width: 768) 0" src="/fukuoka.png" />
             </div>
             <div className={RectStyles.rect} ref={rect} />
             <div className={RectStyles.arrow} ref={arrow}>
@@ -112,7 +112,7 @@ const Home: NextPage = () => {
                   <b>説明 :</b>
                   <span
                     data-slot="WordPress を Headless にして GraphQL にて API
-                を作成しました、ページ生成は NuxtJS の static generate 機能を使用して実装しています。"
+                を作成しました、ページ生成は NuxtJS の Static Site Generator を使用して実装しています。"
                   />
                 </p>
               </article>
@@ -158,7 +158,7 @@ const Home: NextPage = () => {
                 </p>
                 <p>
                   <b>説明 :</b>
-                  <span data-slot="アプリ開発後は管理画面の開発を任さられました。フロントは NextJS を使用して開発してます。またバックエンドの実装も一部任さられました。バックエンドは NestJS と MySQL でインフラ周りは GCP を使用しています。" />
+                  <span data-slot="アプリ開発後は Web の管理画面開発を任さられました。フロントは NextJS を使用して開発してます。またバックエンドの実装も一部任さられました。バックエンドは NestJS と MySQL でインフラ周りは GCP を使用しています。" />
                 </p>
               </article>
             </section>
@@ -178,7 +178,7 @@ const Home: NextPage = () => {
                   そのあとこちらも独学で学んでた React を使用した開発にもアサインされ
                   Web開発も行いました。
                   <br />
-                  また直近ですと NestJS を使用したバックエンド実装にも携わりました。
+                  また直近は NestJS を使用したバックエンド実装にも携わりました。
                   <br />
                   そうした中で今回地元に帰省するので転職活動を行うことになりました。
                   <br />
